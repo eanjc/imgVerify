@@ -6,6 +6,8 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.wb.swt.SWTResourceManager;
 
 import test.SourceImagePredictTest;
+import util.chartUtil;
+import util.imgScan;
 
 import org.eclipse.swt.widgets.Menu;
 
@@ -13,6 +15,12 @@ import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.Date;
+
+import javax.imageio.ImageIO;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.MenuItem;
@@ -46,12 +54,18 @@ public class GuiEntrance {
 	private Text text_di3;
 	private Text text_di4;
 	private Text text_handprocessresult;
+	
+	public Date date;
+	
+	public BufferedImage bfimg_source;
+	public static String root;
 
 	/**
 	 * Launch the application.
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		root=System.getProperty("user.dir");
 		try {
 			GuiEntrance window = new GuiEntrance();
 			window.open();
@@ -189,25 +203,96 @@ public class GuiEntrance {
 		lblNewLabel_3.setSize(120, 31);
 		lblNewLabel_3.setText("\u539F\u59CB\u6587\u4EF6\uFF1A");
 		
-		Button button = new Button(composite_handprocess, SWT.NONE);
-		button.setLocation(1020, 88);
-		button.setSize(150, 41);
-		button.setText("\u9009\u62E9\u56FE\u7247");
+		Label lblhandpro_fp = new Label(composite_handprocess, SWT.NONE);
+		lblhandpro_fp.setLocation(193, 93);
+		lblhandpro_fp.setSize(789, 31);
+		
+		Canvas canvas_1 = new Canvas(composite_handprocess, SWT.NONE);
+		canvas_1.setBounds(187, 139, 336, 96);
 		
 		Canvas canvas_2 = new Canvas(composite_handprocess, SWT.NONE);
 		canvas_2.setLocation(183, 254);
 		canvas_2.setSize(303, 96);
 		
-		Label lblhandpro_fp = new Label(composite_handprocess, SWT.NONE);
-		lblhandpro_fp.setLocation(193, 93);
-		lblhandpro_fp.setSize(789, 31);
+		Button button_1 = new Button(composite_handprocess, SWT.NONE);
+		button_1.setEnabled(false);
+		button_1.setBounds(1020, 141, 150, 41);
+		button_1.setText("\u8BBE\u5B9A\u5E76\u5904\u7406");
+		
+		Button btngetgray = new Button(composite_handprocess, SWT.NONE);
+		btngetgray.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				date=new Date();
+				long rad=date.getTime();
+				imgScan scan_demo=new imgScan(bfimg_source);
+				chartUtil chart_demo=new chartUtil(scan_demo.grayScan());
+				String filesavepath=root+"\\chart\\garyHistogram\\chart-"+rad+".jpg";
+				try {
+					chart_demo.saveAsFile(chart_demo.drawHistogramChart(), filesavepath, 3000, 1000);
+				} catch (Exception e1) {
+					// TODO 自动生成的 catch 块
+					e1.printStackTrace();
+				}
+				String cmd="rundll32 c:\\Windows\\System32\\shimgvw.dll,ImageView_Fullscreen "+filesavepath;
+				try {
+					Runtime.getRuntime().exec(cmd);
+				} catch (IOException e1) {
+					// TODO 自动生成的 catch 块
+					e1.printStackTrace();
+				}
+				
+			}
+		});
+		btngetgray.setEnabled(false);
+		btngetgray.setBounds(589, 178, 180, 41);
+		btngetgray.setText("\u63D0\u53D6\u7070\u5EA6\u76F4\u65B9\u56FE");
+		
+		Button button = new Button(composite_handprocess, SWT.NONE);
+		button.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				FileDialog fd=new FileDialog(shell, SWT.SINGLE);
+				fd.setText("选择图片：");
+				fd.open();
+				String filepath=fd.getFilterPath()+"\\"+fd.getFileName();
+				lblhandpro_fp.setText(filepath);
+				File sf=new File(filepath);
+				Image img=new Image(Display.getDefault(), filepath);
+				
+				canvas_1.addPaintListener(new PaintListener() {
+					
+					@Override
+					public void paintControl(PaintEvent e) {
+						// TODO 自动生成的方法存根
+						e.gc.drawImage(img, 0, 0);
+					}
+				});
+				canvas_1.redraw();
+				try {
+					bfimg_source=ImageIO.read(sf);
+				} catch (IOException e1) {
+					// TODO 自动生成的 catch 块
+					e1.printStackTrace();
+				}
+				button_1.setEnabled(true);
+				btngetgray.setEnabled(true);
+				
+			}
+		});
+		button.setLocation(1020, 88);
+		button.setSize(150, 41);
+		button.setText("\u9009\u62E9\u56FE\u7247");
+		
+
+		
+
 		
 		Label label_1 = new Label(composite_handprocess, SWT.NONE);
 		label_1.setBounds(27, 141, 120, 31);
 		label_1.setText("\u539F\u59CB\u56FE\u7247\uFF1A");
 		
-		Canvas canvas_1 = new Canvas(composite_handprocess, SWT.NONE);
-		canvas_1.setBounds(187, 139, 336, 96);
+
 		
 		Label lblNewLabel_4 = new Label(composite_handprocess, SWT.NONE);
 		lblNewLabel_4.setBounds(579, 141, 274, 31);
@@ -217,13 +302,7 @@ public class GuiEntrance {
 		text_grayth.setText("80");
 		text_grayth.setBounds(882, 138, 82, 37);
 		
-		Button button_1 = new Button(composite_handprocess, SWT.NONE);
-		button_1.setBounds(1020, 141, 150, 41);
-		button_1.setText("\u8BBE\u5B9A\u5E76\u5904\u7406");
-		
-		Button btngetgray = new Button(composite_handprocess, SWT.NONE);
-		btngetgray.setBounds(589, 178, 180, 41);
-		btngetgray.setText("\u63D0\u53D6\u7070\u5EA6\u76F4\u65B9\u56FE");
+
 		
 		Label lblNewLabel_5 = new Label(composite_handprocess, SWT.NONE);
 		lblNewLabel_5.setBounds(27, 254, 120, 31);
@@ -292,10 +371,12 @@ public class GuiEntrance {
 		text_meds.setBounds(1020, 443, 74, 37);
 		
 		Button btn_renoise = new Button(composite_handprocess, SWT.NONE);
+		btn_renoise.setEnabled(false);
 		btn_renoise.setBounds(944, 497, 150, 41);
 		btn_renoise.setText("\u53BB\u566A\u5904\u7406");
 		
 		Button btn_getscan = new Button(composite_handprocess, SWT.NONE);
+		btn_getscan.setEnabled(false);
 		btn_getscan.setBounds(40, 384, 218, 41);
 		btn_getscan.setText("\u63D0\u53D6\u50CF\u7D20\u626B\u63CF\u56FE");
 		
@@ -316,6 +397,7 @@ public class GuiEntrance {
 		text_di4.setBounds(509, 468, 74, 37);
 		
 		Button btn_cutandpredict = new Button(composite_handprocess, SWT.NONE);
+		btn_cutandpredict.setEnabled(false);
 		btn_cutandpredict.setBounds(39, 528, 150, 41);
 		btn_cutandpredict.setText("\u5207\u5272\u5E76\u8BC6\u522B");
 		

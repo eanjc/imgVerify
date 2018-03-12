@@ -10,6 +10,8 @@ import org.jfree.chart.JFreeChart;
 
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DatasetUtilities;
+import org.jfree.data.statistics.SimpleHistogramDataset;
+import org.jfree.data.xy.IntervalXYDataset;
 
 public class chartUtil {
 	
@@ -36,9 +38,28 @@ public class chartUtil {
 		}
 		
 		JFreeChart jfc=ChartFactory.createLineChart("pxNumber","Location" , "Amount", dataset);
+		
 		//œÍœ∏…Ë÷√ °¬‘
 		return jfc;
 				
+	}
+	
+	public JFreeChart drawHistogramChart()
+	{
+		//IntervalXYDataset dataset=new SimpleHistogramDataset("Number");
+		DefaultCategoryDataset dataset=new DefaultCategoryDataset();
+		String rowkeys[]={"Number"};
+		int colkeys[]=new int[rawdata.length];
+		for(int i=0;i<rawdata.length;i++)
+		{
+			colkeys[i]=i;
+			
+			dataset.addValue(rawdata[i], "Number", Integer.toString(i));
+		}
+		
+		JFreeChart jfc=ChartFactory.createBarChart("GRAY", "GrayLevel", "Amount", dataset);
+		return jfc;
+		
 	}
 	
 	public void saveAsFile(JFreeChart jfc,String path,int width,int height) throws Exception

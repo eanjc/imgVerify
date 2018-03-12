@@ -9,7 +9,29 @@ public class imgScan {
 	int width;
 	int height;
 	
-	public static final int blackTH=20; //识别用黑色像素灰度阈值
+	public static  int blackTH=80; //识别用黑色像素灰度阈值
+	
+	public void setBlackTH(int th)
+	{
+		blackTH=th;
+	}
+	
+	public int[] grayScan()
+	{
+		int gray[]=new int[256];
+		for(int i=0;i<256;i++)
+			gray[i]=0;
+		for(int x=0;x<img.getWidth();x++)
+		{
+			for(int y=0;y<img.getHeight();y++)
+			{
+				int g=new Color(img.getRGB(x, y)).getBlue();
+				gray[g]++;
+			}
+		}
+		
+		return gray;
+	}
 	
 	public imgScan(BufferedImage rawimg)
 	{
