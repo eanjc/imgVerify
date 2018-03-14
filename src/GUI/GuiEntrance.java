@@ -5,6 +5,7 @@ import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.wb.swt.SWTResourceManager;
 
+import dataIO.writePredictImageToSVMData;
 import renoise.lineRemove;
 import test.SourceImagePredictTest;
 import util.*;
@@ -74,9 +75,11 @@ public class GuiEntrance {
 	public BufferedImage bfimg_aftrn;
 	public ArrayList<BufferedImage> aft_width_divide;
 	public ArrayList<BufferedImage> aft_height_divide;	
+	public ArrayList<BufferedImage> aft_rz;
 	public static String root;
 	private Text text_di5;
 	public String last_file_path;
+	public int[] cutLocation;
 
 	/**
 	 * Launch the application.
@@ -117,7 +120,7 @@ public class GuiEntrance {
 		shell.setSize(1206, 860);
 		shell.setText("\u56FE\u7247\u9A8C\u8BC1\u7801\u5904\u7406\u8BC6\u522B\u7CFB\u7EDF");
 		
-		
+		cutLocation=new int[]{0,0,0,0,0};
 		
 		Menu menu = new Menu(shell, SWT.BAR);
 		shell.setMenuBar(menu);
@@ -248,6 +251,86 @@ public class GuiEntrance {
 		btn_getscan.setText("\u63D0\u53D6\u50CF\u7D20\u626B\u63CF\u56FE");
 		
 		Button btn_cutandpredict = new Button(composite_handprocess, SWT.NONE);
+		btn_cutandpredict.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				if(!mathutils.isCutLocationIegal(cutLocation)||!mathutils.isSmallToBig(cutLocation))//数据合法性检查
+				{
+					MessageBox msb=new MessageBox(shell);
+					msb.setText("Error!");
+					msb.setMessage("请检查切分位置是否从小到大，切分点是否在0-199范围内");
+					msb.open();
+					return;
+				}
+				characterDivide demo_cut=new characterDivide(bfimg_aftrn);
+				demo_cut.hand_cut_image(cutLocation);
+				aft_width_divide=demo_cut.getDivided();
+				aft_height_divide=new ArrayList<BufferedImage>();
+				for(BufferedImage i:aft_width_divide)
+				{
+					characterDivide demo_hcut=new characterDivide(i);
+					aft_height_divide.add(demo_hcut.heightDivide(6, 2));
+				}
+				aft_rz=new ArrayList<BufferedImage>();
+						
+				int no=1;
+				for(BufferedImage i:aft_height_divide)
+				{
+					imgResize demo_rz=new imgResize(i);
+					aft_rz.add(demo_rz.resize(20, 20));
+					String path=System.getProperty("user.dir")+"\\temp\\trainingdata\\h-img-"+no+".jpg";
+					File out=new File(path);
+					no++;
+					try {
+						ImageIO.write(demo_rz.resize(20, 20), "bmp", out);
+					} catch (IOException e1) {
+						// TODO 自动生成的 catch 块
+						e1.printStackTrace();
+					}
+				}
+				writePredictImageToSVMData demo_wd=new writePredictImageToSVMData(aft_rz);
+				long offset=0;
+				try {
+					offset=demo_wd.writeToFile();
+				} catch (Exception e1) {
+					// TODO 自动生成的 catch 块
+					e1.printStackTrace();
+					MessageBox msb=new MessageBox(shell);
+					msb.setText("Error!");
+					msb.setMessage("写入SVM数据文件时出错");
+					msb.open();
+					return;
+				}
+				String testFile=demo_wd.getFilePath();
+				String resultFile=System.getProperty("user.dir")+"\\temp\\trainingresult\\result-"+offset+".txt";
+				
+				svmUtils demo_svm=new svmUtils();
+				demo_svm.setDesFiles(testFile, resultFile);
+				try {
+					demo_svm.svmPredict();
+				} catch (IOException e1) {
+					// TODO 自动生成的 catch 块
+					e1.printStackTrace();
+					MessageBox msb=new MessageBox(shell);
+					msb.setText("Error!");
+					msb.setMessage("SVM预测时出错");
+					msb.open();
+					return;
+				}
+				resultProcess demo_resPro=new resultProcess(resultFile, demo_svm.getPredictFile());
+				String result="";
+				try {
+					result=demo_resPro.saveAndGetResStr();
+				} catch (Exception e1) {
+					// TODO 自动生成的 catch 块
+					e1.printStackTrace();
+				}
+				text_handprocessresult.setText(result);
+				
+				
+				
+			}
+		});
 		btn_cutandpredict.setEnabled(false);
 		btn_cutandpredict.setBounds(39, 528, 150, 41);
 		btn_cutandpredict.setText("\u5207\u5272\u5E76\u8BC6\u522B");
@@ -613,8 +696,8 @@ public class GuiEntrance {
 		text_di[2]=text_di3;
 		text_di[3]=text_di4;
 		text_di[4]=text_di5;
-		
-		
+		int defaultlocationi[]=new int[]{52,82,106,131,165};//52,82,106,131,165
+		String defaultlocations[]=new String[]{"52","82","106","131","165"};//52,82,106,131,165
 		text_di1.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusLost(FocusEvent e) {
@@ -632,6 +715,7 @@ public class GuiEntrance {
 						msb.setText("Error!");
 						msb.setMessage("输入不合法");
 						msb.open();
+						text_di1.setText(defaultlocations[0]);
 						return;
 					}
 					location[i]=Integer.parseInt(str[i]);
@@ -652,6 +736,7 @@ public class GuiEntrance {
 					}
 				});
 				canvas_2.redraw();
+				cutLocation=location;
 			
 			}
 		});
@@ -675,6 +760,7 @@ public class GuiEntrance {
 						msb.setText("Error!");
 						msb.setMessage("输入不合法");
 						msb.open();
+						text_di2.setText(defaultlocations[1]);
 						return;
 					}
 					location[i]=Integer.parseInt(str[i]);
@@ -695,6 +781,7 @@ public class GuiEntrance {
 					}
 				});
 				canvas_2.redraw();
+				cutLocation=location;
 			}
 		});
 		text_di2.setBounds(287, 468, 74, 37);
@@ -717,6 +804,7 @@ public class GuiEntrance {
 						msb.setText("Error!");
 						msb.setMessage("输入不合法");
 						msb.open();
+						text_di3.setText(defaultlocations[2]);
 						return;
 					}
 					location[i]=Integer.parseInt(str[i]);
@@ -737,6 +825,7 @@ public class GuiEntrance {
 					}
 				});
 				canvas_2.redraw();
+				cutLocation=location;
 			}
 		});
 		text_di3.setBounds(399, 468, 74, 37);
@@ -759,6 +848,7 @@ public class GuiEntrance {
 						msb.setText("Error!");
 						msb.setMessage("输入不合法");
 						msb.open();
+						text_di4.setText(defaultlocations[3]);
 						return;
 					}
 					location[i]=Integer.parseInt(str[i]);
@@ -779,6 +869,7 @@ public class GuiEntrance {
 					}
 				});
 				canvas_2.redraw();
+				cutLocation=location;
 			}
 		});
 		text_di4.setBounds(509, 468, 74, 37);
@@ -790,6 +881,7 @@ public class GuiEntrance {
 				Image img=new Image(Display.getDefault(), last_file_path);
 				String str[]=new String[5];
 				int location[]=new int[]{0,0,0,0,0};
+				
 				for(int i=0;i<5;i++)
 				{
 					str[i]=text_di[i].getText();
@@ -801,6 +893,7 @@ public class GuiEntrance {
 						msb.setText("Error!");
 						msb.setMessage("输入不合法");
 						msb.open();
+						text_di5.setText(defaultlocations[4]);
 						return;
 					}
 					location[i]=Integer.parseInt(str[i]);
@@ -821,6 +914,7 @@ public class GuiEntrance {
 					}
 				});
 				canvas_2.redraw();
+				cutLocation=location;
 			}
 		});
 		text_di5.setBounds(619, 468, 74, 37);
@@ -835,6 +929,14 @@ public class GuiEntrance {
 		text_handprocessresult.setBounds(218, 604, 120, 37);
 		
 		Button btn_handcopy = new Button(composite_handprocess, SWT.NONE);
+		btn_handcopy.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				Clipboard cb=Toolkit.getDefaultToolkit().getSystemClipboard();
+				Transferable trans=new StringSelection(text_handprocessresult.getText());
+				cb.setContents(trans, null);
+			}
+		});
 		btn_handcopy.setBounds(458, 604, 150, 41);
 		btn_handcopy.setText("\u590D\u5236\u5230\u526A\u5207\u677F");
 		

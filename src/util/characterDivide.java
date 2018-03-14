@@ -53,6 +53,21 @@ public class characterDivide {
 	public void hand_cut_image(int cutLocation[])
 	{
 		divided=new ArrayList<BufferedImage>();
+		for(int i=0;i<4;i++)
+		{
+			BufferedImage bfimg=new BufferedImage(cutLocation[i+1]-cutLocation[i]+1, 50, BufferedImage.TYPE_BYTE_BINARY);
+			int dx=0;
+			for(int x=cutLocation[i];x<=cutLocation[i+1];x++)
+			{
+				for(int y=0;y<rawimg.getHeight();y++)
+				{
+					bfimg.setRGB(dx, y, rawimg.getRGB(x, y));
+				}
+				dx++;
+			}
+			divided.add(bfimg);
+		}
+		
 		
 	}
 

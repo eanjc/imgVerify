@@ -16,4 +16,9 @@ public class TrainBySVM {
 
 	}
 */
+	public void svmtrain () throws Exception
+	{
+		svm_train demo=new svm_train();
+		demo.SVMTRAINmain(str_trained);
+	}
 }

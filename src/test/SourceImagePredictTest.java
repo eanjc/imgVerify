@@ -134,7 +134,7 @@ public class SourceImagePredictTest {
 			imgResize demo_resize=new imgResize(i);
 			BufferedImage im=demo_resize.resize(20, 20);
 			aft_resize.add(demo_resize.resize(20, 20));
-			String desFile=root+"\\testcharacterdata\\"+r+".jpg";
+			String desFile=root+"\\temp\\trainingdata\\"+r+".jpg";
 			r++;
 			File desf=new File(desFile);
 			ImageIO.write(im, "bmp", desf);
@@ -145,10 +145,10 @@ public class SourceImagePredictTest {
 		long file_offset=demo_wpi.writeToFile();//得到随机文件名
 		
 		//SVM预测
-		 String testFile=System.getProperty("user.dir")+"\\testcharacterdata\\test-"+file_offset+".txt"; //预测输入文件
+		 String testFile=System.getProperty("user.dir")+"\\temp\\trainingdata\\test-"+file_offset+".txt"; //预测输入文件
 		 String modelDataPath=System.getProperty("user.dir")+"\\svm\\svm.model";//分类模型
 		 String predictFile=System.getProperty("user.dir")+"\\svm\\predict.txt";//预测结果
-		 String resultFile=System.getProperty("user.dir")+"\\testcharacterdata\\result-"+file_offset+".txt";
+		 String resultFile=System.getProperty("user.dir")+"\\temp\\trainingresult\\result-"+file_offset+".txt";
 		 
 		String SVM_input_str[]={testFile,modelDataPath,predictFile};
 		svm_predict demo_svm_pre=new svm_predict();

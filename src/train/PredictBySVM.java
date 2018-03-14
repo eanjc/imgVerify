@@ -13,6 +13,7 @@ import javax.print.DocFlavor.READER;
 import svm.svm_predict;
 
 public class PredictBySVM {
+	//
 
 	public static String testFile=System.getProperty("user.dir")+"\\svm\\test.txt";
 	public static String modelDataPath=System.getProperty("user.dir")+"\\svm\\svm.model";
