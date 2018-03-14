@@ -49,6 +49,12 @@ public class characterDivide {
 	public void setHeightZero(ArrayList<Integer> heightZero) {
 		this.heightZero = heightZero;
 	}
+	
+	public void hand_cut_image(int cutLocation[])
+	{
+		divided=new ArrayList<BufferedImage>();
+		
+	}
 
 	public void directDivide()//52,82,106,131,165
 	{

@@ -21,6 +21,7 @@ import java.awt.datatransfer.Transferable;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.imageio.ImageIO;
@@ -35,11 +36,15 @@ import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.widgets.Combo;
+import org.eclipse.swt.events.FocusAdapter;
+import org.eclipse.swt.events.FocusEvent;
 
 public class GuiEntrance {
 
@@ -58,6 +63,7 @@ public class GuiEntrance {
 	private Text text_di3;
 	private Text text_di4;
 	private Text text_handprocessresult;
+	private Text[] text_di;
 	
 	public Date date;
 	
@@ -66,7 +72,11 @@ public class GuiEntrance {
 	public BufferedImage bfimg_aftrp;
 	public BufferedImage bfimg_renoise_process;
 	public BufferedImage bfimg_aftrn;
+	public ArrayList<BufferedImage> aft_width_divide;
+	public ArrayList<BufferedImage> aft_height_divide;	
 	public static String root;
+	private Text text_di5;
+	public String last_file_path;
 
 	/**
 	 * Launch the application.
@@ -106,6 +116,8 @@ public class GuiEntrance {
 		shell.setImage(SWTResourceManager.getImage("C:\\\u6587\u4EF6\\\u6BD5\u4E1A\u8BBE\u8BA1\\code\\imgVerify\\DKX5NihU8AADm8_.png"));
 		shell.setSize(1206, 860);
 		shell.setText("\u56FE\u7247\u9A8C\u8BC1\u7801\u5904\u7406\u8BC6\u522B\u7CFB\u7EDF");
+		
+		
 		
 		Menu menu = new Menu(shell, SWT.BAR);
 		shell.setMenuBar(menu);
@@ -208,6 +220,29 @@ public class GuiEntrance {
 		btn_medf.setText("\u7C7B\u4E2D\u503C\u6EE4\u6CE2");
 		
 		Button btn_getscan = new Button(composite_handprocess, SWT.NONE);
+		btn_getscan.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				long rad=new Date().getTime();
+				String filepath=root+"\\temp\\chart\\pointScan\\img-"+rad+".jpg";
+				int data[]=new imgScan(bfimg_aftrn).widthScan();
+				chartUtil demo_chart=new chartUtil(data);
+				try {
+					demo_chart.saveAsFile(demo_chart.drawLineChart(), filepath, 2000, 500);
+				} catch (Exception e1) {
+					// TODO 自动生成的 catch 块
+					e1.printStackTrace();
+				}
+				String cmd="rundll32 c:\\Windows\\System32\\shimgvw.dll,ImageView_Fullscreen "+filepath;
+				try {
+					Runtime.getRuntime().exec(cmd);
+				} catch (IOException e1) {
+					// TODO 自动生成的 catch 块
+					e1.printStackTrace();
+				}
+				
+			}
+		});
 		btn_getscan.setEnabled(false);
 		btn_getscan.setBounds(40, 384, 218, 41);
 		btn_getscan.setText("\u63D0\u53D6\u50CF\u7D20\u626B\u63CF\u56FE");
@@ -281,9 +316,15 @@ public class GuiEntrance {
 				{
 					btn_cutandpredict.setEnabled(true);
 					btn_getscan.setEnabled(true);
+					text_di1.setEnabled(true);
+					text_di2.setEnabled(true);
+					text_di3.setEnabled(true);
+					text_di4.setEnabled(true);
+					text_di5.setEnabled(true);
 					bfimg_aftrn=bfimg_renoise_process;
 					long rad=new Date().getTime();
 					String filepath=root+"\\temp\\image\\img-"+rad+".jpg";
+					last_file_path=filepath;
 					File f=new File(filepath);
 					try {
 						ImageIO.write(bfimg_aftrn, "bmp", f);
@@ -400,6 +441,7 @@ public class GuiEntrance {
 					}
 				});
 				canvas_2.redraw();
+				
 				btn_renoise.setEnabled(true);
 								
 			}
@@ -556,16 +598,232 @@ public class GuiEntrance {
 		lblNewLabel_12.setText("\u5207\u5272\u4F4D\u7F6E\uFF1A");
 		
 		text_di1 = new Text(composite_handprocess, SWT.BORDER);
+		text_di1.setEnabled(false);
+		text_di2 = new Text(composite_handprocess, SWT.BORDER);
+		text_di2.setEnabled(false);
+		text_di3 = new Text(composite_handprocess, SWT.BORDER);
+		text_di3.setEnabled(false);
+		text_di4 = new Text(composite_handprocess, SWT.BORDER);
+		text_di4.setEnabled(false);
+		text_di5 = new Text(composite_handprocess, SWT.BORDER);
+		text_di5.setEnabled(false);
+		text_di=new Text[5];
+		text_di[0]=text_di1;
+		text_di[1]=text_di2;
+		text_di[2]=text_di3;
+		text_di[3]=text_di4;
+		text_di[4]=text_di5;
+		
+		
+		text_di1.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				Image img=new Image(Display.getDefault(), last_file_path);
+				String str[]=new String[5];
+				int location[]=new int[]{0,0,0,0,0};
+				for(int i=0;i<5;i++)
+				{
+					str[i]=text_di[i].getText();
+					if(str[i].equals(""))
+						str[i]="0";
+					if(!mathutils.isNumber(str[i]))
+					{
+						MessageBox msb=new MessageBox(shell);
+						msb.setText("Error!");
+						msb.setMessage("输入不合法");
+						msb.open();
+						return;
+					}
+					location[i]=Integer.parseInt(str[i]);
+				}
+				GC gc=new GC(img);
+				Rectangle bounds=img.getBounds();
+				for(int j=0;j<5;j++)
+				{
+					gc.drawLine(location[j], 0, location[j], bounds.height);
+				}
+				gc.dispose();
+				canvas_2.addPaintListener(new PaintListener() {
+					
+					@Override
+					public void paintControl(PaintEvent e) {
+						// TODO 自动生成的方法存根
+						e.gc.drawImage(img, 0, 0);
+					}
+				});
+				canvas_2.redraw();
+			
+			}
+		});
 		text_di1.setBounds(183, 468, 74, 37);
 		
-		text_di2 = new Text(composite_handprocess, SWT.BORDER);
+		
+		text_di2.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				Image img=new Image(Display.getDefault(), last_file_path);
+				String str[]=new String[5];
+				int location[]=new int[]{0,0,0,0,0};
+				for(int i=0;i<5;i++)
+				{
+					str[i]=text_di[i].getText();
+					if(str[i].equals(""))
+						str[i]="0";
+					if(!mathutils.isNumber(str[i]))
+					{
+						MessageBox msb=new MessageBox(shell);
+						msb.setText("Error!");
+						msb.setMessage("输入不合法");
+						msb.open();
+						return;
+					}
+					location[i]=Integer.parseInt(str[i]);
+				}
+				GC gc=new GC(img);
+				Rectangle bounds=img.getBounds();
+				for(int j=0;j<5;j++)
+				{
+					gc.drawLine(location[j], 0, location[j], bounds.height);
+				}
+				gc.dispose();
+				canvas_2.addPaintListener(new PaintListener() {
+					
+					@Override
+					public void paintControl(PaintEvent e) {
+						// TODO 自动生成的方法存根
+						e.gc.drawImage(img, 0, 0);
+					}
+				});
+				canvas_2.redraw();
+			}
+		});
 		text_di2.setBounds(287, 468, 74, 37);
 		
-		text_di3 = new Text(composite_handprocess, SWT.BORDER);
+		
+		text_di3.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				Image img=new Image(Display.getDefault(), last_file_path);
+				String str[]=new String[5];
+				int location[]=new int[]{0,0,0,0,0};
+				for(int i=0;i<5;i++)
+				{
+					str[i]=text_di[i].getText();
+					if(str[i].equals(""))
+						str[i]="0";
+					if(!mathutils.isNumber(str[i]))
+					{
+						MessageBox msb=new MessageBox(shell);
+						msb.setText("Error!");
+						msb.setMessage("输入不合法");
+						msb.open();
+						return;
+					}
+					location[i]=Integer.parseInt(str[i]);
+				}
+				GC gc=new GC(img);
+				Rectangle bounds=img.getBounds();
+				for(int j=0;j<5;j++)
+				{
+					gc.drawLine(location[j], 0, location[j], bounds.height);
+				}
+				gc.dispose();
+				canvas_2.addPaintListener(new PaintListener() {
+					
+					@Override
+					public void paintControl(PaintEvent e) {
+						// TODO 自动生成的方法存根
+						e.gc.drawImage(img, 0, 0);
+					}
+				});
+				canvas_2.redraw();
+			}
+		});
 		text_di3.setBounds(399, 468, 74, 37);
 		
-		text_di4 = new Text(composite_handprocess, SWT.BORDER);
+		
+		text_di4.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				Image img=new Image(Display.getDefault(),last_file_path);
+				String str[]=new String[5];
+				int location[]=new int[]{0,0,0,0,0};
+				for(int i=0;i<5;i++)
+				{
+					str[i]=text_di[i].getText();
+					if(str[i].equals(""))
+						str[i]="0";
+					if(!mathutils.isNumber(str[i]))
+					{
+						MessageBox msb=new MessageBox(shell);
+						msb.setText("Error!");
+						msb.setMessage("输入不合法");
+						msb.open();
+						return;
+					}
+					location[i]=Integer.parseInt(str[i]);
+				}
+				GC gc=new GC(img);
+				Rectangle bounds=img.getBounds();
+				for(int j=0;j<5;j++)
+				{
+					gc.drawLine(location[j], 0, location[j], bounds.height);
+				}
+				gc.dispose();
+				canvas_2.addPaintListener(new PaintListener() {
+					
+					@Override
+					public void paintControl(PaintEvent e) {
+						// TODO 自动生成的方法存根
+						e.gc.drawImage(img, 0, 0);
+					}
+				});
+				canvas_2.redraw();
+			}
+		});
 		text_di4.setBounds(509, 468, 74, 37);
+		
+		
+		text_di5.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				Image img=new Image(Display.getDefault(), last_file_path);
+				String str[]=new String[5];
+				int location[]=new int[]{0,0,0,0,0};
+				for(int i=0;i<5;i++)
+				{
+					str[i]=text_di[i].getText();
+					if(str[i].equals(""))
+						str[i]="0";
+					if(!mathutils.isNumber(str[i]))
+					{
+						MessageBox msb=new MessageBox(shell);
+						msb.setText("Error!");
+						msb.setMessage("输入不合法");
+						msb.open();
+						return;
+					}
+					location[i]=Integer.parseInt(str[i]);
+				}
+				GC gc=new GC(img);
+				Rectangle bounds=img.getBounds();
+				for(int j=0;j<5;j++)
+				{
+					gc.drawLine(location[j], 0, location[j], bounds.height);
+				}
+				gc.dispose();
+				canvas_2.addPaintListener(new PaintListener() {
+					
+					@Override
+					public void paintControl(PaintEvent e) {
+						// TODO 自动生成的方法存根
+						e.gc.drawImage(img, 0, 0);
+					}
+				});
+				canvas_2.redraw();
+			}
+		});
+		text_di5.setBounds(619, 468, 74, 37);
 		
 
 		

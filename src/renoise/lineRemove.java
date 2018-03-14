@@ -101,7 +101,7 @@ public class lineRemove {
 		int width=img.getWidth();
 		int height=img.getHeight();
 		List<Point>toBeWhite=new ArrayList<Point>();
-		int th=6*wide;
+		int th=5*wide;
 		for(int x=0;x<width;x++)
 		{
 			for(int y=0;y<height;y++)
