@@ -452,6 +452,68 @@ public class characterDivide {
 		
 	}
 	
+	public BufferedImage heightDivide(int sth,int eth,int keys[])
+	{
+		//int keys[]={9,46};
+		int location_start=keys[0];
+		int location_end=keys[1];
+		imgScan demo=new imgScan(rawimg);
+		int rawdata[]=demo.heightScan();
+		
+		for(int y=5;y<14;y++)
+		{
+			if(rawdata[y-1]==0&&rawdata[y]!=0)
+				location_start=y-1;
+		}
+		
+		for(int y=43;y<48;y++)
+		{
+			if(rawdata[y-1]!=0&&rawdata[y]==0)
+				location_end=y;
+		}
+		
+		boolean sf=true;
+		for(int i=keys[0]-sth;i<=keys[0]+sth;i++)
+		{
+			if(i==location_start)
+			{
+				sf=false;
+				break;
+			}
+		}
+		
+		boolean ef=true;
+		for(int i=keys[1]-eth;i<=keys[1]+eth;i++)
+		{
+			if(i==location_end)
+			{
+				ef=false;
+				break;
+			}
+		}
+		
+		if(sf)
+			location_start=keys[0];
+		if(ef)
+			location_end=keys[1];
+		
+		BufferedImage result=new BufferedImage(rawimg.getWidth(), location_end-location_start+1, BufferedImage.TYPE_BYTE_BINARY);
+		
+		int rpy=0;
+		for(int y=location_start;y<=location_end;y++)
+		{
+			for(int x=0;x<rawimg.getWidth();x++)
+			{
+				result.setRGB(x, rpy, rawimg.getRGB(x, y));
+			}
+			rpy++;
+		}
+
+		
+		return result;
+		
+	}
+	
 	
 
 }

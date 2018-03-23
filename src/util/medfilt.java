@@ -25,7 +25,7 @@ public class medfilt {
 		}
 		else
 		{
-			if(centre<0||centre>size)
+			if(centre<0||centre>=size)
 			{
 				choice=c;
 			}

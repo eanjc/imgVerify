@@ -5,6 +5,7 @@ import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.wb.swt.SWTResourceManager;
 
+import config.InitConfig;
 import dataIO.writePredictImageToSVMData;
 import renoise.lineRemove;
 import test.SourceImagePredictTest;
@@ -87,7 +88,13 @@ public class GuiEntrance {
 	 */
 	public static void main(String[] args) {
 		root=System.getProperty("user.dir");
+		//进入前初始化和检查
+		InitConfig demo_initini=new InitConfig();
+
 		try {
+			if(!demo_initini.isConfigFileAvailable())
+				demo_initini.createOriginConfig();
+			
 			GuiEntrance window = new GuiEntrance();
 			window.open();
 		} catch (Exception e) {
