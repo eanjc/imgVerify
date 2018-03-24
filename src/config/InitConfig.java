@@ -50,12 +50,12 @@ public class InitConfig {
 		
 		//设置各文件路径参数
 	
-		IniSection filePathS=inif.addSection("default file path");
+		IniSection filePathS=inif.addSection("defaultFilePath");
 		
 		//注意这里的路径从工程目录起！！使用时前面加root
-		IniItem defaultModelFile=new IniItem("default model file path");
+		IniItem defaultModelFile=new IniItem("defaultModelFilePath");
 		defaultModelFile.setValue("\\svm\\svm.model");
-		IniItem defaultPredictFile=new IniItem("default predict file path");
+		IniItem defaultPredictFile=new IniItem("defaultPredictFilePath");
 		defaultPredictFile.setValue("\\svm\\predict.txt");
 		
 		filePathS.addItem(defaultPredictFile);
@@ -63,39 +63,39 @@ public class InitConfig {
 		
 		
 		//设置二值化参数
-		IniSection gray2bw=inif.addSection("gray to blackwhite");
+		IniSection gray2bw=inif.addSection("grayToBlackwhite");
 		
-		IniItem g2bwThreshold=new IniItem("GrayToBW Threshold");
+		IniItem g2bwThreshold=new IniItem("GrayToBWThreshold");
 		g2bwThreshold.setValue(80);
 		
 		gray2bw.addItem(g2bwThreshold);
 		
 		
 		//设置白点修复参数
-		IniSection rpwpoint=inif.addSection("white point repair");
+		IniSection rpwpoint=inif.addSection("whitePointRepair");
 		
-		IniItem rppointT=new IniItem("white point repair Threshold");
+		IniItem rppointT=new IniItem("whitePointRepairThreshold");
 		rppointT.setValue(3);
 		
 		rpwpoint.addItem(rppointT);
 		
 		
 		//设置去噪参数
-		IniSection renoise=inif.addSection("noise remove");
+		IniSection renoise=inif.addSection("noiseRemove");
 		
-		IniItem eightdirSize=new IniItem("eight direction noise remove size");
+		IniItem eightdirSize=new IniItem("eightDirectionNoiseRemoveSize");
 		eightdirSize.setValue(2);
-		IniItem eightdirTh=new IniItem("eight direction noise remove judge Threshold");
+		IniItem eightdirTh=new IniItem("eightDirectionNoiseRemoveJudgeThreshold");
 		eightdirTh.setValue(5);
 		
-		IniItem deeprenoise=new IniItem("deep dircetion noise remove range");
+		IniItem deeprenoise=new IniItem("deepDircetionNoiseRemoveRange");
 		deeprenoise.setValue(3);
 		
-		IniItem medFH=new IniItem("MidFilter Height");
+		IniItem medFH=new IniItem("MidFilterHeight");
 		medFH.setValue(5);
-		IniItem medFW=new IniItem("MidFilter Width");
+		IniItem medFW=new IniItem("MidFilterWidth");
 		medFW.setValue(3);
-		IniItem medFS=new IniItem("MidFilter Selection");
+		IniItem medFS=new IniItem("MidFilterSelection");
 		medFS.setValue(9);
 		
 		renoise.addItem(eightdirSize);
@@ -109,18 +109,18 @@ public class InitConfig {
 		
 		//设置图片分割参数
 		
-		IniSection imgDivede=inif.addSection("image divide");
+		IniSection imgDivede=inif.addSection("imageDivide");
 		
-		IniItem dekeys=new IniItem("divide line keys");
+		IniItem dekeys=new IniItem("divideLineKeys");
 		dekeys.setValue("52-82-106-131-165");
-		IniItem widthProjctionDivideTh=new IniItem("width projction divide judge Threshold");
+		IniItem widthProjctionDivideTh=new IniItem("widthProjctionDivideJudgeThreshold");
 		widthProjctionDivideTh.setValue(10);
-		IniItem hckeys=new IniItem("height cut line keys");
+		IniItem hckeys=new IniItem("heightCutLineKeys");
 		hckeys.setValue("9-46");
 		
-		IniItem heightCutTopTh=new IniItem("height cut top Threshold");
+		IniItem heightCutTopTh=new IniItem("heightCutTopThreshold");
 		heightCutTopTh.setValue(6);
-		IniItem heightCutButtomTh=new IniItem("height cut buttom Threshold");
+		IniItem heightCutButtomTh=new IniItem("heightCutButtomThreshold");
 		heightCutButtomTh.setValue(2);
 		
 		imgDivede.addItem(dekeys);
@@ -133,11 +133,11 @@ public class InitConfig {
 		
 		//设置图片大小归一化参数
 		
-		IniSection imgresize=inif.addSection("image resize");
+		IniSection imgresize=inif.addSection("imageResize");
 		
-		IniItem rszHeight=new IniItem("height after resize");
+		IniItem rszHeight=new IniItem("heightAfterResize");
 		rszHeight.setValue(20);
-		IniItem rszWidth =new IniItem("width after resize");
+		IniItem rszWidth =new IniItem("widthAfterResize");
 		rszWidth.setValue(20);
 		
 		imgresize.addItem(rszHeight);
