@@ -981,6 +981,12 @@ public class GuiEntrance {
 		menuItem_2.setMenu(menu_2);
 		
 		MenuItem menuItem_3 = new MenuItem(menu_2, SWT.NONE);
+		menuItem_3.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				new configSetupWindow(Display.getCurrent()).startwindow();
+			}
+		});
 		menuItem_3.setText("\u9884\u8BBE\u503C\u8C03\u6574");
 		
 		MenuItem mntmSvm = new MenuItem(menu, SWT.CASCADE);
