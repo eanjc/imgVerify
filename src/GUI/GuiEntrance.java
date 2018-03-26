@@ -1,6 +1,7 @@
 package GUI;
 
 import org.eclipse.swt.widgets.Display;
+import check.*;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.wb.swt.SWTResourceManager;
@@ -89,11 +90,12 @@ public class GuiEntrance {
 	public static void main(String[] args) {
 		root=System.getProperty("user.dir");
 		//进入前初始化和检查
-		InitConfig demo_initini=new InitConfig();
+		//InitConfig demo_initini=new InitConfig();
 
 		try {
-			if(!demo_initini.isConfigFileAvailable())
-				demo_initini.createOriginConfig();
+			//if(!demo_initini.isConfigFileAvailable())
+			//	demo_initini.createOriginConfig();
+			check.beforeRunCheck.doThisCheckBeforeRun();
 			
 			GuiEntrance window = new GuiEntrance();
 			window.open();
@@ -984,7 +986,13 @@ public class GuiEntrance {
 		menuItem_3.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				new configSetupWindow(Display.getCurrent()).startwindow();
+				
+				MessageBox msg=new MessageBox(shell);
+				msg.setText("Warning!");
+				msg.setMessage("请注意任何对默认参数值的修改都可能会导致与训练模型创建时的处理不同而影响预测结果！");
+				if(msg.open()==SWT.OK)
+					new configSetupWindow(Display.getCurrent()).startwindow();
+				
 			}
 		});
 		menuItem_3.setText("\u9884\u8BBE\u503C\u8C03\u6574");
