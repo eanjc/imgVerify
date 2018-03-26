@@ -34,5 +34,15 @@ public class mathutils {
 		}
 		return true;
 	}
+	
+	public static boolean isHeightCutLocationIegal(int data[])
+	{
+		for(int i=0;i<data.length;i++)
+		{
+			if(data[i]<=0||data[i]>=49)
+				return false;
+		}
+		return true;
+	}
 
 }

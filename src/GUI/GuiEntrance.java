@@ -997,6 +997,20 @@ public class GuiEntrance {
 		});
 		menuItem_3.setText("\u9884\u8BBE\u503C\u8C03\u6574");
 		
+		MenuItem mntmNewItem_1 = new MenuItem(menu_2, SWT.NONE);
+		mntmNewItem_1.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				try {
+					config.config.repairConfig();
+				} catch (Exception e1) {
+					// TODO 自动生成的 catch 块
+					e1.printStackTrace();
+				}
+			}
+		});
+		mntmNewItem_1.setText("\u6062\u590D\u9ED8\u8BA4\u914D\u7F6E\u6587\u4EF6");
+		
 		MenuItem mntmSvm = new MenuItem(menu, SWT.CASCADE);
 		mntmSvm.setText("SVM\u8BBE\u7F6E");
 		

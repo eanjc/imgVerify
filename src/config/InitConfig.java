@@ -57,9 +57,12 @@ public class InitConfig {
 		defaultModelFile.setValue("\\svm\\svm.model");
 		IniItem defaultPredictFile=new IniItem("defaultPredictFilePath");
 		defaultPredictFile.setValue("\\svm\\predict.txt");
+		IniItem isfp=new IniItem("isFullPath");
+		isfp.setValue(0);
 		
 		filePathS.addItem(defaultPredictFile);
 		filePathS.addItem(defaultModelFile);
+		filePathS.addItem(isfp);
 		
 		
 		//设置二值化参数

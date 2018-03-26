@@ -37,6 +37,17 @@ public class config {
 		configbak=inif;
 	}
 	
+	public static void repairConfig() throws Exception
+	{
+		File f=new File(System.getProperty("user.dir")+"\\config.ini.bak");
+		AdvancedIniFile inifr=new AdvancedIniFile();
+		IniFileReader ifr=new IniFileReader(inifr, f);
+		ifr.read();
+		File fn=new File(System.getProperty("user.dir")+"\\config.ini");
+		IniFileWriter ifw=new IniFileWriter(inifr, fn);
+		ifw.write();
+	}
+	
 	public static void forceSave() throws Exception
 	{
 		File f=new File(System.getProperty("user.dir")+"\\config.ini");
