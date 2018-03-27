@@ -52,6 +52,9 @@ public class configSetupWindow extends Shell {
 	private Button btnNewButton_3;
 	private Button button;
 	private Button btnNewButton_4;
+	private Button btnCheckButton;
+	private Button button_1;
+	private Button button_2;
 	
 	private static Set<Text>numberDataTexts=new HashSet<Text>();
 
@@ -463,11 +466,34 @@ public class configSetupWindow extends Shell {
 		});
 		btnNewButton_4.setBounds(624, 734, 80, 27);
 		btnNewButton_4.setText("\u5F3A\u5236\u4FEE\u6539");
+		
+		btnCheckButton = new Button(this, SWT.CHECK);
+		btnCheckButton.setBounds(18, 301, 45, 17);
+		btnCheckButton.setText("\u4F7F\u7528");
+		
+		button_1 = new Button(this, SWT.CHECK);
+		button_1.setSelection(true);
+		button_1.setText("\u4F7F\u7528");
+		button_1.setBounds(18, 404, 45, 17);
+		
+		button_2 = new Button(this, SWT.CHECK);
+		button_2.setText("\u4F7F\u7528");
+		button_2.setBounds(18, 350, 45, 17);
 		createContents();
+		
+
 	}
 	
 	public  void setParaToConfig(int i)
 	{
+		if(!(btnCheckButton.getSelection()&&button_1.getSelection()&&button_2.getSelection()))
+		{
+			MessageBox msg=new MessageBox(getShell());
+			msg.setText("ERROR");
+			msg.setMessage("请至少选择一种去噪方法。");
+			msg.open();
+			return;
+		}
 		for(Text t:numberDataTexts)
 		{
 			String str=t.getText();
@@ -485,6 +511,33 @@ public class configSetupWindow extends Shell {
 		{
 			config.parameter.put("defaultModelFilePath",text.getText());//模型文件路径
 			config.parameter.put("isFullPath",1);//绝对路径符号
+		}
+		
+		if(btnCheckButton.getSelection())
+		{
+			config.parameter.put("eightDirectionNoiseRemoveEnabled", 1);
+		}
+		else
+		{
+			config.parameter.put("eightDirectionNoiseRemoveEnabled", 0);
+		}
+		
+		if(button_1.getSelection())
+		{
+			config.parameter.put("midFilterNoiseRemoveEnabled", 1);
+		}
+		else
+		{
+			config.parameter.put("midFilterNoiseRemoveEnabled", 0);
+		}
+		
+		if(button_2.getSelection())
+		{
+			config.parameter.put("deepDircetionNoiseRemoveEnabled", 1);
+		}
+		else
+		{
+			config.parameter.put("deepDircetionNoiseRemoveEnabled", 0);
 		}
 
 		config.parameter.put("GrayToBWThreshold", text_1.getText());//二值化阈值

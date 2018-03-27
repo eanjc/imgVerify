@@ -8,6 +8,7 @@ import org.eclipse.wb.swt.SWTResourceManager;
 
 import config.InitConfig;
 import dataIO.writePredictImageToSVMData;
+import process.captchaPredict;
 import renoise.lineRemove;
 import test.SourceImagePredictTest;
 import util.*;
@@ -82,6 +83,8 @@ public class GuiEntrance {
 	private Text text_di5;
 	public String last_file_path;
 	public int[] cutLocation;
+	
+	public static String currentModelFilePath=""; //TODO
 
 	/**
 	 * Launch the application.
@@ -181,10 +184,12 @@ public class GuiEntrance {
 				});
 			    canvas.redraw();
 			    
-			    SourceImagePredictTest demo=new SourceImagePredictTest();
+			    //SourceImagePredictTest demo=new SourceImagePredictTest();
+			    captchaPredict pre_demo=new captchaPredict(filepath);
 			    autoProcessResult="";
 			    try {
-					autoProcessResult=demo.predict(filepath);
+					//autoProcessResult=demo.predict(filepath);
+			    	autoProcessResult=pre_demo.predictByDefaultConfig();
 				} catch (Exception e1) {
 					// TODO 自动生成的 catch 块
 					e1.printStackTrace();

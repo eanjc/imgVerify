@@ -90,9 +90,13 @@ public class InitConfig {
 		eightdirSize.setValue(2);
 		IniItem eightdirTh=new IniItem("eightDirectionNoiseRemoveJudgeThreshold");
 		eightdirTh.setValue(5);
+		IniItem eightdirstat=new IniItem("eightDirectionNoiseRemoveEnabled");
+		eightdirstat.setValue(0);
 		
 		IniItem deeprenoise=new IniItem("deepDircetionNoiseRemoveRange");
 		deeprenoise.setValue(3);
+		IniItem deepstat=new IniItem("deepDircetionNoiseRemoveEnabled");
+		deepstat.setValue(0);
 		
 		IniItem medFH=new IniItem("MidFilterHeight");
 		medFH.setValue(5);
@@ -100,6 +104,8 @@ public class InitConfig {
 		medFW.setValue(3);
 		IniItem medFS=new IniItem("MidFilterSelection");
 		medFS.setValue(9);
+		IniItem medstat=new IniItem("midFilterNoiseRemoveEnabled");
+		medstat.setValue(1);
 		
 		renoise.addItem(eightdirSize);
 		renoise.addItem(eightdirTh);

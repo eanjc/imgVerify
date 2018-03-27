@@ -374,6 +374,164 @@ public class characterDivide {
 		*/
 		
 	}
+	
+	public void projctionDivede(int th,int keys[])//投影分割
+	{
+		divided=new ArrayList<BufferedImage>();
+		//获取原始数据
+		ArrayList<Integer> location_e=new ArrayList<Integer>();
+		ArrayList<Integer> location_s=new ArrayList<Integer>();
+		//处理得切分数据
+		int divide_s[]=new int[4];
+		int divide_e[]=new int [4];
+		//int key[]={52,82,106,131,165}; //切分准轴
+		imgScan demo=new imgScan(rawimg);
+		int px[]=demo.widthScan();
+		for(int x=45;x<160;x++)
+		{
+			if(px[x-1]==0&&px[x]!=0)
+			{
+				location_s.add(x-1);
+			}
+			
+			if(px[x+1]==0&&px[x]!=0)
+			{
+				location_e.add(x+1);
+			}
+		}
+		
+		//处理切分轴
+		//开始端
+		boolean f_s_1=true;
+		for(int i=keys[0]-th;i<=keys[0]+th;i++)
+		{
+			
+			if(location_s.contains(i))
+			{
+				divide_s[0]=i;
+				f_s_1=false;
+				break;
+			}
+		}
+		if(f_s_1)
+			divide_s[0]=52;
+//---------------------------------
+		boolean f_s_2=true;
+		for(int i=keys[1]-th;i<=keys[1]+th;i++)
+		{
+			
+			if(location_s.contains(i))
+			{
+				divide_s[1]=i;
+				f_s_2=false;
+				break;
+			}
+		}
+		if(f_s_2)
+			divide_s[1]=82;
+//--------------------------------
+		boolean f_s_3=true;
+		for(int i=keys[2]-th;i<=keys[2]+th;i++)
+		{
+			
+			if(location_s.contains(i))
+			{
+				divide_s[2]=i;
+				f_s_3=false;
+				break;
+			}
+		}
+		if(f_s_3)
+			divide_s[2]=106;
+//-----------------------------------
+		boolean f_s_4=true;
+		for(int i=keys[3]-th;i<=keys[3]+th;i++)
+		{
+			
+			if(location_s.contains(i))
+			{
+				divide_s[3]=i;
+				f_s_4=false;
+				break;
+			}
+		}
+		if(f_s_4)
+			divide_s[3]=131;
+		
+		//结束端
+		boolean f_e_1=true;
+		for(int i=keys[1]-th;i<=keys[1]+th;i++)
+		{
+			
+			if(location_e.contains(i))
+			{
+				divide_e[0]=i;
+				f_e_1=false;
+				break;
+			}
+		}
+		if(f_e_1)
+			divide_e[0]=82;
+//--------------------------------------------------
+		boolean f_e_2=true;
+		for(int i=keys[2]-th;i<=keys[2]+th;i++)
+		{
+			
+			if(location_e.contains(i))
+			{
+				divide_e[1]=i;
+				f_e_2=false;
+				break;
+			}
+		}
+		if(f_e_2)
+			divide_e[1]=106;
+//-------------------------------------------------
+		boolean f_e_3=true;
+		for(int i=keys[3]-th;i<=keys[3]+th;i++)
+		{
+			
+			if(location_e.contains(i))
+			{
+				divide_e[2]=i;
+				f_e_3=false;
+				break;
+			}
+		}
+		if(f_e_3)
+			divide_e[2]=131;
+//------------------------------------------------
+		boolean f_e_4=true;
+		for(int i=keys[4]-th;i<=keys[4]+th;i++)
+		{
+			
+			if(location_e.contains(i))
+			{
+				divide_e[3]=i;
+				f_e_4=false;
+				break;
+			}
+		}
+		if(f_e_4)
+			divide_e[3]=165;
+		
+//-----------------------------------------
+		//切割图片生成
+		for(int i=0;i<4;i++)
+		{
+			int rpx=0;
+			BufferedImage dp=new BufferedImage(divide_e[i]-divide_s[i]+1, rawimg.getHeight(), BufferedImage.TYPE_BYTE_BINARY);
+			for(int x=divide_s[i];x<=divide_e[i];x++)
+			{
+				for(int y=0;y<rawimg.getHeight();y++)
+				{
+					dp.setRGB(rpx, y, rawimg.getRGB(x, y));
+				}
+				rpx++;
+			}
+			divided.add(dp);
+		}
+	}
 
 	//for test
 	public void printZero()

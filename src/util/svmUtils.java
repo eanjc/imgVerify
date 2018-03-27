@@ -14,8 +14,8 @@ public class svmUtils {
 	String predictFile;
 	String resultFile;
 	
-	public static final String DefaultModelFile=System.getProperty("user.dir")+"\\svm\\svm.model";//分类模型
-	public static final String DefaultPredictFile=System.getProperty("user.dir")+"\\svm\\predict.txt";//预测结果
+	public static  String DefaultModelFile=System.getProperty("user.dir")+"\\svm\\svm.model";//分类模型
+	public static  String DefaultPredictFile=System.getProperty("user.dir")+"\\svm\\predict.txt";//预测结果
 	
 	double acc;
 	
