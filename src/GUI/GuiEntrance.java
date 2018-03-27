@@ -1028,6 +1028,15 @@ public class GuiEntrance {
 		MenuItem menuItem_5 = new MenuItem(menu_3, SWT.NONE);
 		menuItem_5.setText("\u6A21\u578B\u9009\u62E9");
 		
+		MenuItem mntmNewItem_2 = new MenuItem(menu, SWT.CASCADE);
+		mntmNewItem_2.setText("\u539F\u59CB\u6837\u672C\u5904\u7406");
+		
+		Menu menu_5 = new Menu(mntmNewItem_2);
+		mntmNewItem_2.setMenu(menu_5);
+		
+		MenuItem mntmNewItem_3 = new MenuItem(menu_5, SWT.NONE);
+		mntmNewItem_3.setText("\u5904\u7406\u5230\u5F52\u4E00\u5316\u5B57\u7B26\u6837\u672C");
+		
 		MenuItem menuItem_6 = new MenuItem(menu, SWT.CASCADE);
 		menuItem_6.setText("\u5176\u4ED6");
 		
