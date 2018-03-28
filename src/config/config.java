@@ -51,7 +51,7 @@ public class config {
 	public static void forceSave() throws Exception
 	{
 		File f=new File(System.getProperty("user.dir")+"\\config.ini");
-		AdvancedIniFile inif=(AdvancedIniFile) configbak.clone();
+		AdvancedIniFile inif=configbak;
 		for(IniSection se:inif.getSections())
 		{
 			for(IniItem it:se.getItems())

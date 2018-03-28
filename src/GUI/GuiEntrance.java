@@ -7,6 +7,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.wb.swt.SWTResourceManager;
 
 import config.InitConfig;
+import dataIO.cacheClean;
 import dataIO.writePredictImageToSVMData;
 import process.captchaPredict;
 import renoise.lineRemove;
@@ -49,6 +50,8 @@ import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.events.FocusAdapter;
 import org.eclipse.swt.events.FocusEvent;
+import org.eclipse.swt.events.ShellAdapter;
+import org.eclipse.swt.events.ShellEvent;
 
 public class GuiEntrance {
 
@@ -127,9 +130,16 @@ public class GuiEntrance {
 	 */
 	protected void createContents() {
 		shell = new Shell();
+		shell.addShellListener(new ShellAdapter() {
+			@Override
+			public void shellClosed(ShellEvent e) {
+				Display.getDefault().dispose();
+
+			}
+		});
+		shell.setImage(SWTResourceManager.getImage(root+"\\icon.png"));
 		shell.setBackground(SWTResourceManager.getColor(SWT.COLOR_WIDGET_BACKGROUND));
-		shell.setImage(SWTResourceManager.getImage("C:\\\u6587\u4EF6\\\u6BD5\u4E1A\u8BBE\u8BA1\\code\\imgVerify\\DKX5NihU8AADm8_.png"));
-		shell.setSize(1206, 860);
+		shell.setSize(1206, 750);
 		shell.setText("\u56FE\u7247\u9A8C\u8BC1\u7801\u5904\u7406\u8BC6\u522B\u7CFB\u7EDF");
 		
 		cutLocation=new int[]{0,0,0,0,0};
@@ -169,7 +179,10 @@ public class GuiEntrance {
 			public void widgetSelected(SelectionEvent e) {
 				FileDialog fd=new FileDialog(shell, SWT.SINGLE);
 				fd.setText("选择图片：");
-				fd.open();
+				if(fd.open()==null)
+				{
+					return;
+				}
 				String filepath=fd.getFilterPath()+"\\"+fd.getFileName();
 				lblsfpath_1.setText(filepath);
 				Image img=new Image(Display.getDefault(),filepath);
@@ -582,7 +595,10 @@ public class GuiEntrance {
 			public void widgetSelected(SelectionEvent e) {
 				FileDialog fd=new FileDialog(shell, SWT.SINGLE);
 				fd.setText("选择图片：");
-				fd.open();
+				if(fd.open()==null)
+				{
+					return;
+				}
 				String filepath=fd.getFilterPath()+"\\"+fd.getFileName();
 				lblhandpro_fp.setText(filepath);
 				File sf=new File(filepath);
@@ -1011,7 +1027,13 @@ public class GuiEntrance {
 				} catch (Exception e1) {
 					// TODO 自动生成的 catch 块
 					e1.printStackTrace();
+					MessageBox msg=new MessageBox(shell);
+					msg.setText("ERROR");
+					msg.setMessage("恢复失败！");
 				}
+				MessageBox msg=new MessageBox(shell);
+				msg.setText("Finished");
+				msg.setMessage("恢复成功！");
 			}
 		});
 		mntmNewItem_1.setText("\u6062\u590D\u9ED8\u8BA4\u914D\u7F6E\u6587\u4EF6");
@@ -1023,9 +1045,21 @@ public class GuiEntrance {
 		mntmSvm.setMenu(menu_3);
 		
 		MenuItem menuItem_4 = new MenuItem(menu_3, SWT.NONE);
+		menuItem_4.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				new trainInputFileChooseWindow(Display.getCurrent()).startwindow();
+			}
+		});
 		menuItem_4.setText("\u8BAD\u7EC3");
 		
 		MenuItem menuItem_5 = new MenuItem(menu_3, SWT.NONE);
+		menuItem_5.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				new modelFileChooser(Display.getCurrent()).startwindow();
+			}
+		});
 		menuItem_5.setText("\u6A21\u578B\u9009\u62E9");
 		
 		MenuItem mntmNewItem_2 = new MenuItem(menu, SWT.CASCADE);
@@ -1035,7 +1069,22 @@ public class GuiEntrance {
 		mntmNewItem_2.setMenu(menu_5);
 		
 		MenuItem mntmNewItem_3 = new MenuItem(menu_5, SWT.NONE);
+		mntmNewItem_3.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				new sampleImageProcess(Display.getCurrent()).startwindow();
+			}
+		});
 		mntmNewItem_3.setText("\u5904\u7406\u5230\u5F52\u4E00\u5316\u5B57\u7B26\u6837\u672C");
+		
+		MenuItem mntmNewItem_4 = new MenuItem(menu_5, SWT.NONE);
+		mntmNewItem_4.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				new classificationedImgToScaleData(Display.getCurrent()).startwindow();
+			}
+		});
+		mntmNewItem_4.setText("\u5206\u7C7B\u540E\u6837\u672C\u8F93\u51FA\u5230\u8BAD\u7EC3\u6587\u4EF6");
 		
 		MenuItem menuItem_6 = new MenuItem(menu, SWT.CASCADE);
 		menuItem_6.setText("\u5176\u4ED6");
@@ -1044,6 +1093,37 @@ public class GuiEntrance {
 		menuItem_6.setMenu(menu_4);
 		
 		MenuItem menuItem_7 = new MenuItem(menu_4, SWT.NONE);
+		menuItem_7.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				MessageBox msg=new MessageBox(shell, SWT.OK|SWT.CANCEL);
+				msg.setText("Warning!");
+				msg.setMessage("此操作将删除temp目录下的所有系统中间过程产生的文件数据！");
+				int stat=msg.open();
+				if(stat==SWT.CANCEL)
+				{
+					return;
+				}
+				if(stat==SWT.OK)
+				{
+					try {
+						cacheClean.clean();
+					} catch (Exception e1) {
+						// TODO 自动生成的 catch 块
+						MessageBox msg1=new MessageBox(shell);
+						msg1.setText("ERROR!");
+						msg1.setMessage("清除失败！");
+						msg1.open();
+						e1.printStackTrace();
+					}
+					MessageBox msg1=new MessageBox(shell);
+					msg1.setText("Finished!");
+					msg1.setMessage("清除成功！");
+					msg1.open();
+					
+				}
+			}
+		});
 		menuItem_7.setText("\u6E05\u7A7A\u7F13\u5B58\u6587\u4EF6\u5939");
 		
 

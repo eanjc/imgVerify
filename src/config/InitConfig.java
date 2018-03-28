@@ -21,6 +21,8 @@ public class InitConfig {
 		AdvancedIniFile iniF=new AdvancedIniFile();
 		IniFileReader inifr=new IniFileReader(iniF, f);
 		inifr.read();
+		if(iniF.isEmpty())
+			return false;
 		IniSection vers=iniF.getSection("version");
 		IniItem veri=vers.getItem("version");
 		if(!veri.getValue().equals("1.0"))
@@ -33,6 +35,7 @@ public class InitConfig {
 	public void createOriginConfig() throws Exception
 	{
 		File f=new File(root+"\\config.ini");
+		File fbak=new File(root+"\\config.ini.bak");
 		AdvancedIniFile inif=new AdvancedIniFile();
 		
 		
@@ -156,6 +159,11 @@ public class InitConfig {
 		
 		IniFileWriter ifw=new IniFileWriter(inif, f);
 		ifw.write();
+		if(!fbak.exists())//创建备份文件
+		{
+			IniFileWriter ifw2=new IniFileWriter(inif, fbak);
+			ifw.write();
+		}
 
 
 	}

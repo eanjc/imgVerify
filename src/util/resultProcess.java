@@ -52,6 +52,7 @@ public class resultProcess {
 			System.out.print(i<10?i:""+(char)(i+87));
 		}
 		System.out.println("\r\nPredict Finished");
+		pw.close();
 		return result;
 	}
 
