@@ -2,6 +2,7 @@ package GUI;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.Thread.State;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
@@ -9,6 +10,8 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.wb.swt.SWTResourceManager;
 
 import process.sampleImgDirProcess;
+import threadUtils.fileProcessThread;
+import threadUtils.progressBarThread;
 
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.MessageBox;
@@ -101,6 +104,8 @@ public class sampleImageProcess extends Shell {
 		
 		ProgressBar progressBar = new ProgressBar(this, SWT.SMOOTH);
 		progressBar.setBounds(43, 195, 590, 17);
+		progressBar.setMinimum(0);
+		progressBar.setMaximum(100);
 		
 		Label lblNewLabel = new Label(this, SWT.NONE);
 		lblNewLabel.setBounds(10, 23, 142, 17);
@@ -117,8 +122,8 @@ public class sampleImageProcess extends Shell {
 		text_1.setBounds(39, 129, 522, 41);
 		
 		//test use
-		//text.setText(sp);
-		//text_1.setText(dp);
+	    text.setText(sp);
+		text_1.setText(dp);
 		
 		Button btnNewButton = new Button(this, SWT.NONE);
 		btnNewButton.addSelectionListener(new SelectionAdapter() {
@@ -179,7 +184,18 @@ public class sampleImageProcess extends Shell {
 				sampleImgDirProcess demo=new sampleImgDirProcess(sourceDir, desDir);
 				try {
 					//(new IncresingOperator(progressBar,sourceDir,desDir)).start();
-					demo.process(progressBar);
+					//demo.process(progressBar);
+					fileProcessThread th1=new fileProcessThread(demo,progressBar);
+					progressBarThread th2=new progressBarThread(progressBar,desDir);
+					
+					th1.start();
+					th2.start();
+					
+					
+					//while((th1.getState()!=State.TERMINATED)||(th2.getState()!=State.TERMINATED))
+					{
+						
+					}
 
 
 					
@@ -192,19 +208,7 @@ public class sampleImageProcess extends Shell {
 					e1.printStackTrace();
 				}
 				
-				MessageBox msg=new MessageBox(getShell(),SWT.YES|SWT.NO);
-				msg.setText("Finished");
-				msg.setMessage("处理完成,是否打开目录？");
-				if(msg.open()==SWT.YES)
-				{
-					String cmd="explorer "+desDir;
-					try {
-						Runtime.getRuntime().exec(cmd);
-					} catch (IOException e1) {
-						// TODO 自动生成的 catch 块
-						e1.printStackTrace();
-					}
-				}
+
 				
 				
 			}
