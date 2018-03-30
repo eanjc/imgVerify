@@ -22,7 +22,7 @@ public class beforeRunCheck {
 	{
 		String root=System.getProperty("user.dir");
 		//必要的文件夹目录
-		String path[]={root+"\\svm",root+"\\temp\\chart",root+"\\temp\\image",root+"\\temp\\trainingdata",root+"\\temp\\trainingresult"};
+		String path[]={root+"\\svm",root+"\\temp\\chart\\garyHistogram",root+"\\temp\\chart\\pointScan",root+"\\temp\\image",root+"\\temp\\trainingdata",root+"\\temp\\trainingresult"};
 		
 		for(String str:path)
 		{
