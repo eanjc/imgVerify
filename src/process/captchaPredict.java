@@ -98,7 +98,7 @@ public class captchaPredict {
 		long offset=(new Date()).getTime(); //out put test config
 		for(BufferedImage i:divided)
 		{
-			String str=System.getProperty("user.dir")+"\\temp\\image\\cut-"+offset+"-"+idx;//out put test config
+			String str=System.getProperty("user.dir")+"\\temp\\image\\cut-"+offset+"-"+idx+".jpg";//out put test config
 			File of=new File(str);//out put test config
 			characterDivide demo_height_cut=new characterDivide(i);
 			aft_height_cut.add(demo_height_cut.heightDivide(tth, bth, heightCutKeys));
