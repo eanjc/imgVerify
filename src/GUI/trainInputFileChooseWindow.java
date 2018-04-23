@@ -52,18 +52,18 @@ public class trainInputFileChooseWindow extends Shell {
 		setImage(SWTResourceManager.getImage(root+"\\icon.png"));
 		
 		Label lblNewLabel = new Label(this, SWT.NONE);
-		lblNewLabel.setBounds(10, 47, 142, 17);
+		lblNewLabel.setBounds(10, 47, 248, 32);
 		lblNewLabel.setText("SVM\u8BAD\u7EC3\u6837\u672C\u8F93\u5165\u6587\u4EF6\uFF1A");
 		
 		text = new Text(this, SWT.BORDER);
-		text.setBounds(158, 41, 405, 35);
+		text.setBounds(264, 44, 471, 35);
 		
 		Label lblNewLabel_1 = new Label(this, SWT.NONE);
-		lblNewLabel_1.setBounds(10, 130, 142, 17);
+		lblNewLabel_1.setBounds(10, 130, 248, 41);
 		lblNewLabel_1.setText("SVM\u6A21\u578B\u6587\u4EF6\u4FDD\u5B58\u5730\u5740\uFF1A");
 		
 		text_1 = new Text(this, SWT.BORDER);
-		text_1.setBounds(158, 124, 405, 35);
+		text_1.setBounds(264, 127, 471, 35);
 		
 		Button btnNewButton = new Button(this, SWT.NONE);
 		btnNewButton.addSelectionListener(new SelectionAdapter() {
@@ -79,7 +79,7 @@ public class trainInputFileChooseWindow extends Shell {
 				text.setText(trainFilePath);
 			}
 		});
-		btnNewButton.setBounds(483, 82, 80, 27);
+		btnNewButton.setBounds(655, 85, 80, 27);
 		btnNewButton.setText("\u6D4F\u89C8");
 		
 		Button btnNewButton_1 = new Button(this, SWT.NONE);
@@ -96,7 +96,7 @@ public class trainInputFileChooseWindow extends Shell {
 				text_1.setText(saveModelFilePath);
 			}
 		});
-		btnNewButton_1.setBounds(483, 165, 80, 27);
+		btnNewButton_1.setBounds(655, 168, 80, 27);
 		btnNewButton_1.setText("\u6D4F\u89C8");
 		
 		Button btnNewButton_2 = new Button(this, SWT.NONE);
@@ -165,7 +165,7 @@ public class trainInputFileChooseWindow extends Shell {
 				}
 			}
 		});
-		btnCheckButton.setBounds(10, 165, 115, 17);
+		btnCheckButton.setBounds(10, 226, 239, 35);
 		btnCheckButton.setText("\u4FDD\u5B58\u5230\u9ED8\u8BA4\u8DEF\u5F84");
 		createContents();
 	}
@@ -175,7 +175,7 @@ public class trainInputFileChooseWindow extends Shell {
 	 */
 	protected void createContents() {
 		setText("\u8F93\u5165\u8BAD\u7EC3\u6587\u4EF6");
-		setSize(589, 403);
+		setSize(827, 403);
 
 	}
 

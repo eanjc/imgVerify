@@ -61,11 +61,11 @@ public class modelFileChooser extends Shell {
 		setImage(SWTResourceManager.getImage(root+"\\icon.png"));
 		
 		Label lblNewLabel = new Label(this, SWT.NONE);
-		lblNewLabel.setBounds(10, 28, 131, 17);
+		lblNewLabel.setBounds(10, 28, 240, 37);
 		lblNewLabel.setText("\u5F53\u524D\u4F7F\u7528\u7684\u6A21\u578B\u6587\u4EF6\uFF1A");
 		
 		text = new Text(this, SWT.BORDER);
-		text.setBounds(20, 51, 626, 37);
+		text.setBounds(20, 90, 626, 37);
 		text.setText(defaultModelPath);
 		
 		Button btnNewButton = new Button(this, SWT.NONE);
@@ -83,7 +83,7 @@ public class modelFileChooser extends Shell {
 				
 			}
 		});
-		btnNewButton.setBounds(566, 94, 80, 27);
+		btnNewButton.setBounds(566, 133, 80, 27);
 		btnNewButton.setText("\u66F4\u6362");
 		
 		Button btnNewButton_1 = new Button(this, SWT.NONE);

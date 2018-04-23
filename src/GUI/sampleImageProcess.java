@@ -103,23 +103,23 @@ public class sampleImageProcess extends Shell {
 		setImage(SWTResourceManager.getImage(root+"\\icon.png"));
 		
 		ProgressBar progressBar = new ProgressBar(this, SWT.SMOOTH);
-		progressBar.setBounds(43, 195, 590, 17);
+		progressBar.setBounds(44, 222, 590, 17);
 		progressBar.setMinimum(0);
 		progressBar.setMaximum(100);
 		
 		Label lblNewLabel = new Label(this, SWT.NONE);
-		lblNewLabel.setBounds(10, 23, 142, 17);
+		lblNewLabel.setBounds(10, 23, 287, 36);
 		lblNewLabel.setText("\u6837\u672C\u96C6\u6240\u5728\u6587\u4EF6\u5939\uFF1A");
 		
 		text = new Text(this, SWT.BORDER);
-		text.setBounds(39, 46, 522, 41);
+		text.setBounds(44, 65, 522, 41);
 		
 		Label lblNewLabel_1 = new Label(this, SWT.NONE);
-		lblNewLabel_1.setBounds(10, 106, 91, 17);
+		lblNewLabel_1.setBounds(10, 112, 188, 42);
 		lblNewLabel_1.setText("\u8F93\u51FA\u6587\u4EF6\u5230\uFF1A");
 		
 		text_1 = new Text(this, SWT.BORDER);
-		text_1.setBounds(39, 129, 522, 41);
+		text_1.setBounds(44, 160, 522, 41);
 		
 		//test use
 	    text.setText(sp);
@@ -139,7 +139,7 @@ public class sampleImageProcess extends Shell {
 				text.setText(sampleImagesDir);
 			}
 		});
-		btnNewButton.setBounds(567, 46, 80, 27);
+		btnNewButton.setBounds(572, 70, 80, 27);
 		btnNewButton.setText("\u6D4F\u89C8");
 		
 		Button btnNewButton_1 = new Button(this, SWT.NONE);
@@ -156,7 +156,7 @@ public class sampleImageProcess extends Shell {
 				text_1.setText(desImagesDir);
 			}
 		});
-		btnNewButton_1.setBounds(567, 129, 80, 27);
+		btnNewButton_1.setBounds(567, 165, 80, 27);
 		btnNewButton_1.setText("\u6D4F\u89C8");
 		
 		Button btnNewButton_2 = new Button(this, SWT.NONE);
@@ -213,7 +213,7 @@ public class sampleImageProcess extends Shell {
 				
 			}
 		});
-		btnNewButton_2.setBounds(309, 228, 91, 41);
+		btnNewButton_2.setBounds(308, 273, 91, 41);
 		btnNewButton_2.setText("\u5904\u7406");
 		
 		Button btnNewButton_3 = new Button(this, SWT.NONE);
@@ -223,7 +223,7 @@ public class sampleImageProcess extends Shell {
 				sampleImageProcess.this.dispose();
 			}
 		});
-		btnNewButton_3.setBounds(435, 228, 91, 41);
+		btnNewButton_3.setBounds(434, 273, 91, 41);
 		btnNewButton_3.setText("\u53D6\u6D88");
 		createContents();
 	}
@@ -233,7 +233,7 @@ public class sampleImageProcess extends Shell {
 	 */
 	protected void createContents() {
 		setText("\u539F\u59CB\u6837\u672C\u56FE\u7247\u5230\u5F52\u4E00\u5316\u5B57\u7B26\u5904\u7406");
-		setSize(676, 336);
+		setSize(767, 395);
 
 	}
 

@@ -14,8 +14,8 @@ public class repairSinglePoint {
 		// TODO 自动生成的方法存根
 		for(int i=1;i<=500;i++)
 		{
-			String sourceFile="C:\\文件\\毕业设计\\test\\17BW\\toBW"+i+".jpg";
-			String desFile="C:\\文件\\毕业设计\\test\\9R\\RSP"+i+".jpg";
+			String sourceFile="C:\\文件\\毕业设计\\test\\BW175\\toBW"+i+".jpg";
+			String desFile="C:\\文件\\毕业设计\\test\\BW175RP\\RSP"+i+".jpg";
 			
 			File sf=new File(sourceFile);
 			BufferedImage ri=ImageIO.read(sf);
@@ -31,7 +31,7 @@ public class repairSinglePoint {
 
 	    }
 	}
-	*/
 	
+	*/
 
 }

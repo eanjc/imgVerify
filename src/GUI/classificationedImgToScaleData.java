@@ -55,18 +55,18 @@ public class classificationedImgToScaleData extends Shell {
 		setImage(SWTResourceManager.getImage(root+"\\icon.png"));
 		
 		Label lblNewLabel = new Label(this, SWT.NONE);
-		lblNewLabel.setBounds(21, 22, 152, 17);
+		lblNewLabel.setBounds(21, 22, 262, 44);
 		lblNewLabel.setText("\u8BAD\u7EC3\u96C6\u6240\u5728\u6587\u4EF6\u5939\uFF1A");
 		
 		text = new Text(this, SWT.BORDER);
-		text.setBounds(31, 45, 528, 44);
+		text.setBounds(31, 83, 528, 44);
 		
 		Label lblNewLabel_1 = new Label(this, SWT.NONE);
-		lblNewLabel_1.setBounds(21, 107, 120, 17);
+		lblNewLabel_1.setBounds(21, 133, 214, 37);
 		lblNewLabel_1.setText("\u8F93\u51FA\u6570\u636E\u6587\u4EF6\uFF1A");
 		
 		text_1 = new Text(this, SWT.BORDER);
-		text_1.setBounds(31, 130, 528, 44);
+		text_1.setBounds(31, 176, 528, 44);
 		
 		//test use start
 		//text.setText(testdir);
@@ -87,7 +87,7 @@ public class classificationedImgToScaleData extends Shell {
 				text.setText(sourceDirsPath);
 			}
 		});
-		btnNewButton.setBounds(565, 45, 80, 44);
+		btnNewButton.setBounds(565, 79, 80, 44);
 		btnNewButton.setText("\u6D4F\u89C8");
 		
 		Button btnNewButton_1 = new Button(this, SWT.NONE);
@@ -104,7 +104,7 @@ public class classificationedImgToScaleData extends Shell {
 				text_1.setText(desFilePath);
 			}
 		});
-		btnNewButton_1.setBounds(565, 130, 80, 44);
+		btnNewButton_1.setBounds(565, 176, 80, 44);
 		btnNewButton_1.setText("\u6D4F\u89C8");
 		
 		Button btnNewButton_2 = new Button(this, SWT.NONE);
@@ -132,7 +132,7 @@ public class classificationedImgToScaleData extends Shell {
 				}
 			}
 		});
-		btnNewButton_2.setBounds(192, 224, 88, 44);
+		btnNewButton_2.setBounds(231, 274, 88, 44);
 		btnNewButton_2.setText("\u6267\u884C");
 		
 		Button btnNewButton_3 = new Button(this, SWT.NONE);
@@ -142,7 +142,7 @@ public class classificationedImgToScaleData extends Shell {
 				classificationedImgToScaleData.this.dispose();
 			}
 		});
-		btnNewButton_3.setBounds(322, 224, 88, 44);
+		btnNewButton_3.setBounds(361, 274, 88, 44);
 		btnNewButton_3.setText("\u53D6\u6D88");
 		createContents();
 	}
@@ -152,7 +152,7 @@ public class classificationedImgToScaleData extends Shell {
 	 */
 	protected void createContents() {
 		setText("\u5206\u7C7B\u540E\u8BAD\u7EC3\u96C6\u8F93\u51FA\u5230\u8BAD\u7EC3\u6587\u4EF6");
-		setSize(671, 340);
+		setSize(744, 399);
 
 	}
 

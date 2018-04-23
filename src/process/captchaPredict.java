@@ -41,9 +41,9 @@ public class captchaPredict {
 		BufferedImage img_aft_rp=demo_repairPoint.repairSingleWhitePoint(rswpTH);
 		
 		int renoiseStat[]=new int[3];
-		renoiseStat[0]=Integer.parseInt((String) config.config.getPara().get("eightDirectionNoiseRemoveEnabled"));
-		renoiseStat[1]=Integer.parseInt((String) config.config.getPara().get("deepDircetionNoiseRemoveEnabled"));
-		renoiseStat[2]=Integer.parseInt((String) config.config.getPara().get("midFilterNoiseRemoveEnabled"));
+		renoiseStat[0]=Integer.parseInt((String) config.config.getPara().get("eightDirectionNoiseRemoveEnabled").toString());
+		renoiseStat[1]=Integer.parseInt((String) config.config.getPara().get("deepDircetionNoiseRemoveEnabled").toString());
+		renoiseStat[2]=Integer.parseInt((String) config.config.getPara().get("midFilterNoiseRemoveEnabled").toString());
 		
 		BufferedImage bfi_renoiseProcess=img_aft_rp;
 		if(renoiseStat[0]==1)
