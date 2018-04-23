@@ -381,6 +381,7 @@ public class characterDivide {
 		//获取原始数据
 		ArrayList<Integer> location_e=new ArrayList<Integer>();
 		ArrayList<Integer> location_s=new ArrayList<Integer>();
+		//ArrayList<Integer>zeros=new ArrayList<Integer>();
 		//处理得切分数据
 		int divide_s[]=new int[4];
 		int divide_e[]=new int [4];
@@ -389,6 +390,8 @@ public class characterDivide {
 		int px[]=demo.widthScan();
 		for(int x=45;x<160;x++)
 		{
+			//if(px[x]==0)
+			//	zeros.add(x);
 			if(px[x-1]==0&&px[x]!=0)
 			{
 				location_s.add(x-1);
@@ -414,7 +417,35 @@ public class characterDivide {
 			}
 		}
 		if(f_s_1)
-			divide_s[0]=52;
+		{
+			if(px[keys[0]]==0)
+			{
+				divide_s[0]=keys[0];
+			}
+			else
+			{
+				int t=1;
+				while(t<th)
+				{
+					if(px[keys[0]-t]==0)
+					{
+						divide_s[0]=keys[0]-t;
+						break;
+					}
+					if(px[keys[0]+t]==0)
+					{
+						divide_s[0]=keys[0]+t;
+						break;
+					}
+					t++;
+					
+				}
+				if(t>=th)
+					divide_s[0]=keys[0];
+			}
+		}
+		//if(f_s_1)   修正前代码
+		//divide_s[0]=keys[0];
 //---------------------------------
 		boolean f_s_2=true;
 		for(int i=keys[1]-th;i<=keys[1]+th;i++)
@@ -428,7 +459,33 @@ public class characterDivide {
 			}
 		}
 		if(f_s_2)
-			divide_s[1]=82;
+		{
+			if(px[keys[1]]==0)
+			{
+				divide_s[1]=keys[1];
+			}
+			else
+			{
+				int t=1;
+				while(t<th)
+				{
+					if(px[keys[1]-t]==0)
+					{
+						divide_s[1]=keys[1]-t;
+						break;
+					}
+					if(px[keys[1]+t]==0)
+					{
+						divide_s[1]=keys[1]+t;
+						break;
+					}
+					t++;
+					
+				}
+				if(t>=th)
+					divide_s[1]=keys[1];
+			}
+		}
 //--------------------------------
 		boolean f_s_3=true;
 		for(int i=keys[2]-th;i<=keys[2]+th;i++)
@@ -442,7 +499,33 @@ public class characterDivide {
 			}
 		}
 		if(f_s_3)
-			divide_s[2]=106;
+		{
+			if(px[keys[2]]==0)
+			{
+				divide_s[2]=keys[2];
+			}
+			else
+			{
+				int t=1;
+				while(t<th)
+				{
+					if(px[keys[2]-t]==0)
+					{
+						divide_s[2]=keys[2]-t;
+						break;
+					}
+					if(px[keys[2]+t]==0)
+					{
+						divide_s[2]=keys[2]+t;
+						break;
+					}
+					t++;
+					
+				}
+				if(t>=th)
+					divide_s[2]=keys[2];
+			}
+		}
 //-----------------------------------
 		boolean f_s_4=true;
 		for(int i=keys[3]-th;i<=keys[3]+th;i++)
@@ -456,7 +539,33 @@ public class characterDivide {
 			}
 		}
 		if(f_s_4)
-			divide_s[3]=131;
+		{
+			if(px[keys[3]]==0)
+			{
+				divide_s[3]=keys[3];
+			}
+			else
+			{
+				int t=1;
+				while(t<th)
+				{
+					if(px[keys[3]-t]==0)
+					{
+						divide_s[3]=keys[3]-t;
+						break;
+					}
+					if(px[keys[0]+t]==0)
+					{
+						divide_s[3]=keys[3]+t;
+						break;
+					}
+					t++;
+					
+				}
+				if(t>=th)
+					divide_s[3]=keys[3];
+			}
+		}
 		
 		//结束端
 		boolean f_e_1=true;
@@ -471,7 +580,33 @@ public class characterDivide {
 			}
 		}
 		if(f_e_1)
-			divide_e[0]=82;
+		{
+			if(px[keys[1]]==0)
+			{
+				divide_e[0]=keys[1];
+			}
+			else
+			{
+				int t=1;
+				while(t<th)
+				{
+					if(px[keys[1]-t]==0)
+					{
+						divide_e[0]=keys[1]-t;
+						break;
+					}
+					if(px[keys[1]+t]==0)
+					{
+						divide_e[0]=keys[1]+t;
+						break;
+					}
+					t++;
+					
+				}
+				if(t>=th)
+					divide_e[0]=keys[1];
+			}
+		}
 //--------------------------------------------------
 		boolean f_e_2=true;
 		for(int i=keys[2]-th;i<=keys[2]+th;i++)
@@ -485,7 +620,33 @@ public class characterDivide {
 			}
 		}
 		if(f_e_2)
-			divide_e[1]=106;
+		{
+			if(px[keys[2]]==0)
+			{
+				divide_e[1]=keys[2];
+			}
+			else
+			{
+				int t=1;
+				while(t<th)
+				{
+					if(px[keys[2]-t]==0)
+					{
+						divide_e[1]=keys[2]-t;
+						break;
+					}
+					if(px[keys[2]+t]==0)
+					{
+						divide_e[1]=keys[2]+t;
+						break;
+					}
+					t++;
+					
+				}
+				if(t>=th)
+					divide_e[1]=keys[2];
+			}
+		}
 //-------------------------------------------------
 		boolean f_e_3=true;
 		for(int i=keys[3]-th;i<=keys[3]+th;i++)
@@ -499,7 +660,33 @@ public class characterDivide {
 			}
 		}
 		if(f_e_3)
-			divide_e[2]=131;
+		{
+			if(px[keys[3]]==0)
+			{
+				divide_e[2]=keys[3];
+			}
+			else
+			{
+				int t=1;
+				while(t<th)
+				{
+					if(px[keys[3]-t]==0)
+					{
+						divide_e[2]=keys[3]-t;
+						break;
+					}
+					if(px[keys[3]+t]==0)
+					{
+						divide_e[2]=keys[3]+t;
+						break;
+					}
+					t++;
+					
+				}
+				if(t>=th)
+					divide_e[2]=keys[3];
+			}
+		}
 //------------------------------------------------
 		boolean f_e_4=true;
 		for(int i=keys[4]-th;i<=keys[4]+th;i++)
@@ -513,7 +700,33 @@ public class characterDivide {
 			}
 		}
 		if(f_e_4)
-			divide_e[3]=165;
+		{
+			if(px[keys[4]]==0)
+			{
+				divide_e[3]=keys[4];
+			}
+			else
+			{
+				int t=1;
+				while(t<th)
+				{
+					if(px[keys[4]-t]==0)
+					{
+						divide_e[3]=keys[4]-t;
+						break;
+					}
+					if(px[keys[4]+t]==0)
+					{
+						divide_e[3]=keys[4]+t;
+						break;
+					}
+					t++;
+					
+				}
+				if(t>=th)
+					divide_e[3]=keys[4];
+			}
+		}
 		
 //-----------------------------------------
 		//切割图片生成
