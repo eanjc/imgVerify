@@ -3,6 +3,7 @@ package process;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -93,10 +94,16 @@ public class captchaPredict {
 		int tth=Integer.parseInt((String) config.config.getPara().get("heightCutTopThreshold"));
 		int bth=Integer.parseInt((String) config.config.getPara().get("heightCutButtomThreshold"));
 		List<BufferedImage> aft_height_cut=new ArrayList<BufferedImage>();
+		int idx=1;                                         //out put test config
+		long offset=(new Date()).getTime(); //out put test config
 		for(BufferedImage i:divided)
 		{
+			String str=System.getProperty("user.dir")+"\\temp\\image\\cut-"+offset+"-"+idx;//out put test config
+			File of=new File(str);//out put test config
 			characterDivide demo_height_cut=new characterDivide(i);
 			aft_height_cut.add(demo_height_cut.heightDivide(tth, bth, heightCutKeys));
+			ImageIO.write(i, "bmp", of);//out put test config
+			idx++;//out put test config
 		}
 		
 		List<BufferedImage> aft_resize=new ArrayList<BufferedImage>();//µ÷ÕûÍ¼Æ¬³ß´çÎª20X20
