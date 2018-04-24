@@ -437,8 +437,8 @@ public class characterDivide {
 			else
 			{
 				int t=1;
-				int min=255;
-				int x=201;
+				int min=px[keys[0]];
+				int x=keys[0];
 				while(t<th)
 				{
 					if(px[keys[0]-t]==0)
@@ -510,8 +510,8 @@ public class characterDivide {
 			else
 			{
 				int t=1;
-				int min=255;
-				int x=201;
+				int min=px[keys[1]];
+				int x=keys[1];
 				while(t<th)
 				{
 					if(px[keys[1]-t]==0)
@@ -579,8 +579,8 @@ public class characterDivide {
 			else
 			{
 				int t=1;
-				int min=255;
-				int x=201;
+				int min=px[keys[2]];
+				int x=keys[2];
 				while(t<th)
 				{
 					if(px[keys[2]-t]==0)
@@ -648,8 +648,8 @@ public class characterDivide {
 			else
 			{
 				int t=1;
-				int min=255;
-				int x=201;
+				int min=px[keys[3]];
+				int x=keys[3];
 				while(t<th)
 				{
 					if(px[keys[3]-t]==0)
@@ -718,8 +718,8 @@ public class characterDivide {
 			else
 			{
 				int t=1;
-				int min=255;
-				int x=201;
+				int min=px[keys[1]];
+				int x=keys[1];
 				while(t<th)
 				{
 					if(px[keys[1]-t]==0)
@@ -787,8 +787,8 @@ public class characterDivide {
 			else
 			{
 				int t=1;
-				int min=255;
-				int x=201;
+				int min=px[keys[2]];
+				int x=keys[2];
 				while(t<th)
 				{
 					if(px[keys[2]-t]==0)
@@ -856,8 +856,8 @@ public class characterDivide {
 			else
 			{
 				int t=1;
-				int min=255;
-				int x=201;
+				int min=px[keys[3]];
+				int x=keys[3];
 				while(t<th)
 				{
 					if(px[keys[3]-t]==0)
@@ -925,8 +925,8 @@ public class characterDivide {
 			else
 			{
 				int t=1;
-				int min=255;
-				int x=201;
+				int min=px[keys[4]];
+				int x=keys[4];
 				while(t<th)
 				{
 					if(px[keys[4]-t]==0)
