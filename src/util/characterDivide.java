@@ -406,10 +406,22 @@ public class characterDivide {
 		//处理切分轴
 		//开始端
 		boolean f_s_1=true;
-		for(int i=keys[0]-th;i<=keys[0]+th;i++)
+		/*
+		 * for(int i=0;i<=th;i++)
+		 * {
+		 *     if(location_s.contains(keys[0]-i)
+		 *     {
+		 *         	divide_s[0]=i;
+				    f_s_1=false;
+				    break;
+				}
+				
+		 * }
+		 */
+		for(int i=keys[0]+th;i>=keys[0]-th;i--)
 		{
 			
-			if(location_s.contains(i))
+			if(location_s.contains(i)&&(px[i+1]==0||px[i-1]==0))
 			{
 				divide_s[0]=i;
 				f_s_1=false;
@@ -425,6 +437,8 @@ public class characterDivide {
 			else
 			{
 				int t=1;
+				int min=255;
+				int x=201;
 				while(t<th)
 				{
 					if(px[keys[0]-t]==0)
@@ -432,26 +446,55 @@ public class characterDivide {
 						divide_s[0]=keys[0]-t;
 						break;
 					}
+					else
+					{
+						if((px[keys[0]-t]<min))
+						{
+							min=(px[keys[0]-t]);
+							x=keys[0]-t;
+						}
+
+					}
 					if(px[keys[0]+t]==0)
 					{
 						divide_s[0]=keys[0]+t;
 						break;
 					}
+					else
+					{
+						if((px[keys[0]+t]<min))
+						{
+							min=(px[keys[0]+t]);
+							x=keys[0]+t;
+						}
+
+					}
 					t++;
 					
 				}
 				if(t>=th)
-					divide_s[0]=keys[0];
+				{
+					if(min<4)
+					{
+						divide_s[0]=x;
+					}
+					else
+					{
+						divide_s[0]=keys[0];
+					}
+				}
+
+					
 			}
 		}
 		//if(f_s_1)   修正前代码
 		//divide_s[0]=keys[0];
 //---------------------------------
 		boolean f_s_2=true;
-		for(int i=keys[1]-th;i<=keys[1]+th;i++)
+		for(int i=keys[1]+th;i>=keys[1]-th;i--)
 		{
 			
-			if(location_s.contains(i))
+			if(location_s.contains(i)&&(px[i+1]==0||px[i-1]==0))
 			{
 				divide_s[1]=i;
 				f_s_2=false;
@@ -467,6 +510,8 @@ public class characterDivide {
 			else
 			{
 				int t=1;
+				int min=255;
+				int x=201;
 				while(t<th)
 				{
 					if(px[keys[1]-t]==0)
@@ -474,24 +519,51 @@ public class characterDivide {
 						divide_s[1]=keys[1]-t;
 						break;
 					}
+					else
+					{
+						if((px[keys[1]-t]<min))
+						{
+							min=(px[keys[1]-t]);
+							x=keys[1]-t;
+						}
+
+					}
 					if(px[keys[1]+t]==0)
 					{
 						divide_s[1]=keys[1]+t;
 						break;
 					}
+					else
+					{
+						if((px[keys[1]+t]<min))
+						{
+							min=(px[keys[1]+t]);
+							x=keys[1]+t;
+						}
+
+					}
 					t++;
 					
 				}
 				if(t>=th)
-					divide_s[1]=keys[1];
+				{
+					if(min<4)
+					{
+						divide_s[1]=x;
+					}
+					else
+					{
+						divide_s[1]=keys[1];
+					}
+				}
 			}
 		}
 //--------------------------------
 		boolean f_s_3=true;
-		for(int i=keys[2]-th;i<=keys[2]+th;i++)
+		for(int i=keys[2]+th;i>=keys[2]-th;i--)
 		{
 			
-			if(location_s.contains(i))
+			if(location_s.contains(i)&&(px[i+1]==0||px[i-1]==0))
 			{
 				divide_s[2]=i;
 				f_s_3=false;
@@ -507,6 +579,8 @@ public class characterDivide {
 			else
 			{
 				int t=1;
+				int min=255;
+				int x=201;
 				while(t<th)
 				{
 					if(px[keys[2]-t]==0)
@@ -514,24 +588,51 @@ public class characterDivide {
 						divide_s[2]=keys[2]-t;
 						break;
 					}
+					else
+					{
+						if((px[keys[2]-t]<min))
+						{
+							min=(px[keys[2]-t]);
+							x=keys[2]-t;
+						}
+
+					}
 					if(px[keys[2]+t]==0)
 					{
 						divide_s[2]=keys[2]+t;
 						break;
 					}
+					else
+					{
+						if((px[keys[2]+t]<min))
+						{
+							min=(px[keys[2]+t]);
+							x=keys[2]+t;
+						}
+
+					}
 					t++;
 					
 				}
 				if(t>=th)
-					divide_s[2]=keys[2];
+				{
+					if(min<4)
+					{
+						divide_s[2]=x;
+					}
+					else
+					{
+						divide_s[2]=keys[2];
+					}
+				}
 			}
 		}
 //-----------------------------------
 		boolean f_s_4=true;
-		for(int i=keys[3]-th;i<=keys[3]+th;i++)
+		for(int i=keys[3]+th;i>=keys[3]-th;i--)
 		{
 			
-			if(location_s.contains(i))
+			if(location_s.contains(i)&&(px[i+1]==0||px[i-1]==0))
 			{
 				divide_s[3]=i;
 				f_s_4=false;
@@ -547,6 +648,8 @@ public class characterDivide {
 			else
 			{
 				int t=1;
+				int min=255;
+				int x=201;
 				while(t<th)
 				{
 					if(px[keys[3]-t]==0)
@@ -554,16 +657,43 @@ public class characterDivide {
 						divide_s[3]=keys[3]-t;
 						break;
 					}
-					if(px[keys[0]+t]==0)
+					else
+					{
+						if((px[keys[3]-t]<min))
+						{
+							min=(px[keys[3]-t]);
+							x=keys[3]-t;
+						}
+
+					}
+					if(px[keys[3]+t]==0)
 					{
 						divide_s[3]=keys[3]+t;
 						break;
+					}
+					else
+					{
+						if((px[keys[3]+t]<min))
+						{
+							min=(px[keys[3]+t]);
+							x=keys[3]+t;
+						}
+
 					}
 					t++;
 					
 				}
 				if(t>=th)
-					divide_s[3]=keys[3];
+				{
+					if(min<4)
+					{
+						divide_s[3]=x;
+					}
+					else
+					{
+						divide_s[3]=keys[3];
+					}
+				}
 			}
 		}
 		
@@ -572,7 +702,7 @@ public class characterDivide {
 		for(int i=keys[1]-th;i<=keys[1]+th;i++)
 		{
 			
-			if(location_e.contains(i))
+			if(location_e.contains(i)&&(px[i+1]==0||px[i-1]==0))
 			{
 				divide_e[0]=i;
 				f_e_1=false;
@@ -588,6 +718,8 @@ public class characterDivide {
 			else
 			{
 				int t=1;
+				int min=255;
+				int x=201;
 				while(t<th)
 				{
 					if(px[keys[1]-t]==0)
@@ -595,16 +727,43 @@ public class characterDivide {
 						divide_e[0]=keys[1]-t;
 						break;
 					}
+					else
+					{
+						if((px[keys[1]-t]<min))
+						{
+							min=(px[keys[1]-t]);
+							x=keys[1]-t;
+						}
+
+					}
 					if(px[keys[1]+t]==0)
 					{
 						divide_e[0]=keys[1]+t;
 						break;
 					}
+					else
+					{
+						if((px[keys[1]+t]<min))
+						{
+							min=(px[keys[1]+t]);
+							x=keys[1]+t;
+						}
+
+					}
 					t++;
 					
 				}
 				if(t>=th)
-					divide_e[0]=keys[1];
+				{
+					if(min<4)
+					{
+						divide_e[0]=x;
+					}
+					else
+					{
+						divide_e[0]=keys[1];
+					}
+				}
 			}
 		}
 //--------------------------------------------------
@@ -612,7 +771,7 @@ public class characterDivide {
 		for(int i=keys[2]-th;i<=keys[2]+th;i++)
 		{
 			
-			if(location_e.contains(i))
+			if(location_e.contains(i)&&(px[i+1]==0||px[i-1]==0))
 			{
 				divide_e[1]=i;
 				f_e_2=false;
@@ -628,6 +787,8 @@ public class characterDivide {
 			else
 			{
 				int t=1;
+				int min=255;
+				int x=201;
 				while(t<th)
 				{
 					if(px[keys[2]-t]==0)
@@ -635,16 +796,43 @@ public class characterDivide {
 						divide_e[1]=keys[2]-t;
 						break;
 					}
+					else
+					{
+						if((px[keys[2]-t]<min))
+						{
+							min=(px[keys[2]-t]);
+							x=keys[2]-t;
+						}
+
+					}
 					if(px[keys[2]+t]==0)
 					{
 						divide_e[1]=keys[2]+t;
 						break;
 					}
+					else
+					{
+						if((px[keys[2]+t]<min))
+						{
+							min=(px[keys[2]+t]);
+							x=keys[2]+t;
+						}
+
+					}
 					t++;
 					
 				}
 				if(t>=th)
-					divide_e[1]=keys[2];
+				{
+					if(min<4)
+					{
+						divide_e[1]=x;
+					}
+					else
+					{
+						divide_e[1]=keys[2];
+					}
+				}
 			}
 		}
 //-------------------------------------------------
@@ -652,7 +840,7 @@ public class characterDivide {
 		for(int i=keys[3]-th;i<=keys[3]+th;i++)
 		{
 			
-			if(location_e.contains(i))
+			if(location_e.contains(i)&&(px[i+1]==0||px[i-1]==0))
 			{
 				divide_e[2]=i;
 				f_e_3=false;
@@ -668,6 +856,8 @@ public class characterDivide {
 			else
 			{
 				int t=1;
+				int min=255;
+				int x=201;
 				while(t<th)
 				{
 					if(px[keys[3]-t]==0)
@@ -675,16 +865,43 @@ public class characterDivide {
 						divide_e[2]=keys[3]-t;
 						break;
 					}
+					else
+					{
+						if((px[keys[3]-t]<min))
+						{
+							min=(px[keys[3]-t]);
+							x=keys[3]-t;
+						}
+
+					}
 					if(px[keys[3]+t]==0)
 					{
 						divide_e[2]=keys[3]+t;
 						break;
 					}
+					else
+					{
+						if((px[keys[3]+t]<min))
+						{
+							min=(px[keys[3]+t]);
+							x=keys[3]+t;
+						}
+
+					}
 					t++;
 					
 				}
 				if(t>=th)
-					divide_e[2]=keys[3];
+				{
+					if(min<4)
+					{
+						divide_e[2]=x;
+					}
+					else
+					{
+						divide_e[2]=keys[3];
+					}
+				}
 			}
 		}
 //------------------------------------------------
@@ -692,7 +909,7 @@ public class characterDivide {
 		for(int i=keys[4]-th;i<=keys[4]+th;i++)
 		{
 			
-			if(location_e.contains(i))
+			if(location_e.contains(i)&&(px[i+1]==0||px[i-1]==0))
 			{
 				divide_e[3]=i;
 				f_e_4=false;
@@ -708,6 +925,8 @@ public class characterDivide {
 			else
 			{
 				int t=1;
+				int min=255;
+				int x=201;
 				while(t<th)
 				{
 					if(px[keys[4]-t]==0)
@@ -715,16 +934,43 @@ public class characterDivide {
 						divide_e[3]=keys[4]-t;
 						break;
 					}
+					else
+					{
+						if((px[keys[4]-t]<min))
+						{
+							min=(px[keys[4]-t]);
+							x=keys[4]-t;
+						}
+
+					}
 					if(px[keys[4]+t]==0)
 					{
 						divide_e[3]=keys[4]+t;
 						break;
 					}
+					else
+					{
+						if((px[keys[4]+t]<min))
+						{
+							min=(px[keys[4]+t]);
+							x=keys[4]+t;
+						}
+
+					}
 					t++;
 					
 				}
 				if(t>=th)
-					divide_e[3]=keys[4];
+				{
+					if(min<4)
+					{
+						divide_e[3]=x;
+					}
+					else
+					{
+						divide_e[3]=keys[4];
+					}
+				}
 			}
 		}
 		
