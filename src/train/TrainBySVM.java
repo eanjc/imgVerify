@@ -25,7 +25,7 @@ public class TrainBySVM {
 	
 	public void svmtrain_esp()throws Exception
 	{
-		String str[] = {"-g","2.0","-c","32","-t","0","-m","500.0","-h","0",espTrainDataPath,espModelDataPath};
+		String str[] = {"-g","2.0","-c","32","-t","0","-m","500.0","-h","0",espTrainDataPath,espModelDataPath}; //参数列表这里可以尝试修正 寻找最佳参数
 		svm_train demo=new svm_train();
 		demo.SVMTRAINmain(str);
 	}

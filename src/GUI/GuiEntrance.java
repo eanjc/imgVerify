@@ -88,6 +88,7 @@ public class GuiEntrance {
 	public int[] cutLocation;
 	
 	public static String currentModelFilePath=""; //TODO
+	private Text text_eth;
 
 	/**
 	 * Launch the application.
@@ -370,6 +371,7 @@ public class GuiEntrance {
 				condition[0]=condition[1]=condition[2]=false;
 				int deep=0;
 				int wide=0;
+				int eth=0;
 				int h=0;
 				int w=0;
 				int s=0;
@@ -392,7 +394,7 @@ public class GuiEntrance {
 				if(btn8dir.getSelection())
 				{
 					condition[1]=true;
-					if(!mathutils.isNumber(text_8dir_size.getText()))
+					if(!mathutils.isNumber(text_8dir_size.getText())||!mathutils.isNumber(text_eth.getText()))
 					{
 						MessageBox msb=new MessageBox(shell);
 						msb.setText("Error!");
@@ -401,8 +403,9 @@ public class GuiEntrance {
 						return;
 					}
 					wide=Integer.parseInt(text_8dir_size.getText());
+					eth=Integer.parseInt(text_eth.getText());
 					lineRemove demo_lr=new lineRemove(bfimg_renoise_process);
-					bfimg_renoise_process=demo_lr.eight_dis_remove(wide);
+					bfimg_renoise_process=demo_lr.eight_dis_remove_globalth(wide, eth);
 				}
 				if(btn_medf.getSelection())
 				{
@@ -469,7 +472,7 @@ public class GuiEntrance {
 			}
 		});
 		btn_renoise.setEnabled(false);
-		btn_renoise.setBounds(944, 497, 150, 41);
+		btn_renoise.setBounds(944, 530, 150, 41);
 		btn_renoise.setText("\u53BB\u566A\u5904\u7406");
 		
 		Button btncopy = new Button(composite_autoProcess, SWT.NONE);
@@ -672,6 +675,14 @@ public class GuiEntrance {
 		lblNewLabel_8.setBounds(896, 292, 87, 31);
 		lblNewLabel_8.setText("\u5E7F\u5EA6\uFF1A");
 		
+		Label lblNewLabel_14 = new Label(composite_handprocess, SWT.NONE);
+		lblNewLabel_14.setBounds(896, 337, 68, 31);
+		lblNewLabel_14.setText("\u5168\u5C40\u9608\u503C\uFF1A");
+		
+		text_eth = new Text(composite_handprocess, SWT.BORDER);
+		text_eth.setText("6");
+		text_eth.setBounds(1020, 332, 73, 38);
+		
 		text_8dir_size = new Text(composite_handprocess, SWT.BORDER);
 		text_8dir_size.setText("2");
 		text_8dir_size.setBounds(1020, 289, 74, 37);
@@ -679,28 +690,28 @@ public class GuiEntrance {
 
 		
 		Label lblNewLabel_9 = new Label(composite_handprocess, SWT.NONE);
-		lblNewLabel_9.setBounds(896, 357, 120, 31);
+		lblNewLabel_9.setBounds(896, 397, 120, 31);
 		lblNewLabel_9.setText("\u9AD8\uFF1A");
 		
 		Label lblNewLabel_10 = new Label(composite_handprocess, SWT.NONE);
-		lblNewLabel_10.setBounds(896, 400, 120, 31);
+		lblNewLabel_10.setBounds(896, 440, 120, 31);
 		lblNewLabel_10.setText("\u5BBD\uFF1A");
 		
 		Label lblNewLabel_11 = new Label(composite_handprocess, SWT.NONE);
-		lblNewLabel_11.setBounds(896, 446, 120, 31);
+		lblNewLabel_11.setBounds(896, 486, 120, 31);
 		lblNewLabel_11.setText("\u9009\u4E2D\u4F4D\u7F6E\uFF1A");
 		
 		text_medh = new Text(composite_handprocess, SWT.BORDER);
 		text_medh.setText("5");
-		text_medh.setBounds(1020, 357, 74, 37);
+		text_medh.setBounds(1020, 397, 74, 37);
 		
 		text_medw = new Text(composite_handprocess, SWT.BORDER);
 		text_medw.setText("3");
-		text_medw.setBounds(1020, 400, 74, 37);
+		text_medw.setBounds(1020, 440, 74, 37);
 		
 		text_meds = new Text(composite_handprocess, SWT.BORDER);
 		text_meds.setText("9");
-		text_meds.setBounds(1020, 443, 74, 37);
+		text_meds.setBounds(1020, 483, 74, 37);
 		
 
 		

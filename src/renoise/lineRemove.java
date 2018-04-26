@@ -101,7 +101,42 @@ public class lineRemove {
 		int width=img.getWidth();
 		int height=img.getHeight();
 		List<Point>toBeWhite=new ArrayList<Point>();
-		int th=5*wide;
+		int th=3*wide;
+		for(int x=0;x<width;x++)
+		{
+			for(int y=0;y<height;y++)
+			{
+				result.setRGB(x, y, img.getRGB(x, y));
+				Color c=new Color(img.getRGB(x, y));
+				if(c.getBlue()<10)//是黑点
+				{
+					Point p=new Point(x,y);
+					int r=0;
+					for(int i=1;i<=wide;i++)
+					{
+						r=r+shouldBeWhite(img,p,i);
+					}
+					if(r>=th)//参数
+						toBeWhite.add(p);
+				}
+			}
+		}
+		
+		for(Point p:toBeWhite)
+		{
+			result.setRGB(p.x, p.y, Color.WHITE.getRGB());
+		}
+		
+		return result;	
+	}
+	//
+	public BufferedImage eight_dis_remove(int wide,int T)
+	{
+		BufferedImage result=new BufferedImage(img.getWidth(),img.getHeight(),BufferedImage.TYPE_BYTE_GRAY);
+		int width=img.getWidth();
+		int height=img.getHeight();
+		List<Point>toBeWhite=new ArrayList<Point>();
+		int th=T*wide;
 		for(int x=0;x<width;x++)
 		{
 			for(int y=0;y<height;y++)
@@ -130,13 +165,13 @@ public class lineRemove {
 		return result;	
 	}
 	
-	public BufferedImage eight_dis_remove(int wide,int T)
+	public BufferedImage eight_dis_remove_globalth(int wide,int T)
 	{
 		BufferedImage result=new BufferedImage(img.getWidth(),img.getHeight(),BufferedImage.TYPE_BYTE_GRAY);
 		int width=img.getWidth();
 		int height=img.getHeight();
 		List<Point>toBeWhite=new ArrayList<Point>();
-		int th=T*wide;
+		int th=T;
 		for(int x=0;x<width;x++)
 		{
 			for(int y=0;y<height;y++)
