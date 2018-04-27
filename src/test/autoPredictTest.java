@@ -12,7 +12,7 @@ public class autoPredictTest {
 	public static void main(String[] args) throws Exception {
 		// TODO 自动生成的方法存根
 		check.beforeRunCheck.doThisCheckBeforeRun();
-		String sdir="C:\\文件\\毕业设计\\code\\imgVerify\\img2\\source\\sourceimg";
+		String sdir="C:\\文件\\毕业设计\\code\\imgVerify\\img\\source\\sourceimg";
 		long offset=new Date().getTime();
 		String resf="C:\\文件\\毕业设计\\code\\imgVerify\\temp\\trainingresult\\autoPredictTest-"+offset+".txt";
 		File fd=new File(resf);
@@ -23,7 +23,7 @@ public class autoPredictTest {
 			String imgpath=sdir+i+".jpg";
 			captchaPredict demo=new captchaPredict(imgpath);
 			String resstr=demo.predictByDefaultConfig();
-			pw.write(resstr+"\r\n");
+			pw.write(i+"  "+resstr+"\r\n");
 			pw.flush();
 		}
 		pw.close();

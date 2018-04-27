@@ -1137,6 +1137,16 @@ public class GuiEntrance {
 		});
 		menuItem_7.setText("\u6E05\u7A7A\u7F13\u5B58\u6587\u4EF6\u5939");
 		
+		MenuItem mntmNewItem_5 = new MenuItem(menu_4, SWT.NONE);
+		mntmNewItem_5.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				new minWidthDetectWindow(Display.getCurrent()).startwindow();
+				
+			}
+		});
+		mntmNewItem_5.setText("\u5217\u6700\u5C0F\u539A\u5EA6\u68C0\u6D4B");
+		
 
 
 	}
