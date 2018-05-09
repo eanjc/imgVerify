@@ -1,5 +1,5 @@
 %-----------------------------------------
-no=261;
+no=125;
 uint8si=aftrnimglist{no};
 dbsi=im2double(uint8si);
 P=[];
