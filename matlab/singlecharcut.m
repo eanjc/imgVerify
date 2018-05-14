@@ -26,4 +26,6 @@ figure;
 plot(yb);
 hold on;
 plot(2000*0.98);
+
+
                 

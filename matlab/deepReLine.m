@@ -45,6 +45,25 @@ bar(DL);
 figure;
 bar(DC);
 
+DLMIN=min(DL);
+DLMAX=max(DL);
+DLL=[];
+idx=1;
+for p=DLMIN:DLMAX
+    DLL(idx)=sum(DL>=p)/idlx;
+    idx=idx+1;
+end
+figure;
+plot(DLL);
 
-            
+DCMIN=min(DC);
+DCMAX=max(DC);
+DCC=[];
+idx=1;
+for p=DCMIN:DCMAX
+    DCC(idx)=sum(DC>=p)/idcx;
+    idx=idx+1;
+end
+figure;
+plot(DCC);            
             

@@ -5,7 +5,7 @@ L=img(1:16,16:184);
 C=img(19:50,52:164);
 
 %line
-rs=4;%²ãÊý
+rs=2;%²ãÊý
 lc=[];
 cc=[];
 i=1;
@@ -62,6 +62,18 @@ for x=1:16
 end
 %figure;
 %bar(lc);
+lcc=[];
+lcmin=min(lc);
+lcmax=max(lc);
+iddx=1;
+for id=1:lcmin
+    lcc(id)=1;
+end
+for pp=lcmin:lcmax
+    lcc(pp)=sum(lc>=pp)/i;
+end
+figure;
+plot(lcc);
 
 %charcater
 i=1;
@@ -118,6 +130,21 @@ for x=1:32
 end
 %figure;
 %bar(cc);
+
+ccc=[];
+ccmin=min(cc);
+ccmax=max(cc);
+iddx=1;
+for id=1:ccmin
+    ccc(id)=1;
+end
+for pp=ccmin:ccmax
+    ccc(pp+1)=sum(cc>=pp)/i;
+end
+cccx=0:1:ccmax;
+figure;
+plot(cccx,ccc);
+%plot(ccc);
                 
 ccc=1209;
 lll=339;
